@@ -9,7 +9,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const memoryText = document.getElementById("memory-text");
   const closeModal = document.querySelector(".close-modal");
 
-  // GÜNCELLEME: Anı yıldızları artık normal yıldız sınıfını almıyor, bu sayede görünüyorlar.
+  function createSneezeDust() {
+    document.querySelectorAll(".light-dust").forEach((el) => el.remove());
+
+    const dustCount = 50;
+    const sunCenterX = 42;
+    const sunCenterY = 50;
+
+    for (let i = 0; i < dustCount; i++) {
+      const dust = document.createElement("div");
+      dust.classList.add("light-dust");
+
+      const randomX = sunCenterX + (Math.random() * 24 - 12);
+      const randomY = sunCenterY + (Math.random() * 20 - 10);
+
+      dust.style.left = `${randomX}%`;
+      dust.style.top = `${randomY}%`;
+
+      const size = Math.random() * 4 + 2;
+      dust.style.width = `${size}px`;
+      dust.style.height = `${size}px`;
+
+      dust.style.animationDelay = `${Math.random() * 0.5}s`;
+
+      universe.appendChild(dust);
+    }
+  }
+
+  function removeSneezeDust() {
+    const dusts = document.querySelectorAll(".light-dust");
+    dusts.forEach((dust) => {
+      dust.classList.add("falling");
+    });
+
+    setTimeout(() => {
+      dusts.forEach((dust) => dust.remove());
+    }, 2000);
+  }
+
   function createTwinklingStars() {
     const starCount = 200;
     const memoryStars = [15, 65, 115, 165];
@@ -89,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  // HİKAYE VERİSİ GÜNCELLENDİ: DAHA FAZLA ANİMASYON VE EL HAREKETİ
+  // HİKAYE VERİSİ
   const storyData = [
     {
       text: `Evvel zaman içinde, gökyüzünün kocaman oyun parkında, iki çok iyi arkadaş yaşarmış: Biri pırıl pırıl Güneş, diğeri ise tonton Ay.`,
@@ -113,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
       text: `Güneş ise her yere yetişmeye çalışmaktan bazen yorulurmuş. Ay'ın o sakinliğini, sessizce süzülüşünü izler, "Ne güzel, o hiç terlemiyor," dermiş.`,
       action: () => {
         moon.classList.add("wistful");
-        sun.classList.add("wistful"); // Güneş de biraz özlem duysun
+        sun.classList.add("wistful");
       },
     },
     {
@@ -121,7 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         moon.style.left = "78%";
         moon.classList.add("wistful");
-        // GÜNCELLEME: Kararlılık göstergesi olarak elleri çıksın
         moon.classList.add("hands-active");
       },
     },
@@ -129,7 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
       text: `Böylece yörüngesinden yavaşça çıkıp, parmak uçlarında Güneş'e doğru yürümeye başlamış. Acaba Güneş onu oyuna kabul edecek miymiş?`,
       action: () => {
         moon.style.left = "75%";
-        // GÜNCELLEME: Hafifçe yukarı doğru hareket ve dönme
         moon.style.top = "45%";
         moon.style.transform = "translate(-50%, -50%) rotate(-10deg)";
         moon.classList.add("hands-active");
@@ -140,7 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         moon.style.left = "72%";
         moon.classList.add("wistful");
-        // GÜNCELLEME: Harekete devam
         moon.style.top = "42%";
         moon.style.transform = "translate(-50%, -50%) rotate(-20deg)";
         moon.classList.add("hands-active");
@@ -152,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.classList.add("surprised");
         moon.classList.add("wistful");
         moon.style.left = "70%";
-        moon.style.top = "45%"; // Güneş'e bakmak için biraz aşağı insin
+        moon.style.top = "45%";
         moon.style.transform = "translate(-50%, -50%) rotate(0deg)";
         moon.classList.add("hands-active");
       },
@@ -163,14 +197,12 @@ document.addEventListener("DOMContentLoaded", () => {
         moon.style.left = "68%";
         moon.classList.add("happy");
         sun.classList.add("happy");
-        // GÜNCELLEME: Oyun başlıyor, eller aktif
         moon.classList.add("hands-active");
       },
     },
     {
       text: `Böylece gökyüzünde büyük bir koşuşturmaca başlamış. Ay, Güneş'e doğru koştukça aralarındaki mesafe azalmış.`,
       action: () => {
-        // GÜNCELLEME: Daha dinamik bir kavisli koşu yolu
         moon.style.left = "55%";
         moon.style.top = "35%";
         moon.style.transform = "translate(-50%, -50%) rotate(-30deg)";
@@ -182,7 +214,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Güneş o kadar sıcakmış ki, Ay ona yaklaştıkça yanakları ısınmış, pespembe olmuş. Sanki utangaç bir çocuk gibi kızarmış.`,
       action: () => {
-        // GÜNCELLEME: Yaklaşmaya devam ve kızarma
         moon.style.left = "45%";
         moon.style.top = "45%";
         moon.style.transform = "translate(-50%, -50%) rotate(-15deg)";
@@ -200,7 +231,6 @@ document.addEventListener("DOMContentLoaded", () => {
         moon.style.background = "#FFE4E1";
         moon.style.boxShadow = "0 0 20px #FFC0CB, 0 0 40px #FF69B4";
         moon.classList.add("happy");
-        // GÜNCELLEME: Çok yakınlar
         moon.style.left = "35%";
         moon.style.top = "55%";
         moon.classList.add("hands-active");
@@ -212,7 +242,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.classList.remove("surprised");
         sun.classList.add("happy");
         moon.classList.add("happy");
-        // GÜNCELLEME: Yan yana, hafifçe dönmüş şekilde duruyorlar
         sun.style.left = "42%";
         moon.style.left = "58%";
         sun.style.transform = "translate(-50%, -50%) rotate(-10deg)";
@@ -225,7 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
-        // GÜNCELLEME: Konuşurken pozisyonlarını korusunlar
         sun.style.left = "42%";
         moon.style.left = "58%";
         sun.style.transform = "translate(-50%, -50%) rotate(-10deg)";
@@ -237,8 +265,9 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("surprised");
         moon.classList.add("happy");
-        // GÜNCELLEME: Hapşırınca biraz titresin/zıplasın
         sun.style.transform = "translate(-50%, -50%) scale(1.1) rotate(-5deg)";
+
+        createSneezeDust();
       },
     },
     {
@@ -247,10 +276,11 @@ document.addEventListener("DOMContentLoaded", () => {
         moon.classList.add("happy");
         sun.classList.remove("surprised");
         sun.classList.add("happy");
-        // GÜNCELLEME: Ay gülerken biraz geri çekilsin ve dönsün
         moon.style.left = "65%";
         moon.style.transform = "translate(-50%, -50%) rotate(20deg)";
         moon.classList.add("hands-active");
+
+        removeSneezeDust();
       },
     },
     {
@@ -265,7 +295,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `İki arkadaş yan yana dururken, birbirlerinin farklı özelliklerini ne kadar çok sevdiklerini fark etmişler.`,
       action: () => {
-        // GÜNCELLEME: Sakince yan yana gelsinler
         sun.style.left = "45%";
         moon.style.left = "55%";
         sun.classList.add("happy");
@@ -277,7 +306,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
-        // GÜNCELLEME: Ani bir hamle, eller aktifleşir
         moon.style.left = "52%";
         moon.style.transform = "translate(-50%, -50%) scale(1.1)";
         moon.classList.add("hands-active");
@@ -288,7 +316,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
-        // GÜNCELLEME: Güneş kaçıyor, Ay kovalıyor
         sun.style.left = "40%";
         moon.style.left = "48%";
         moon.classList.add("hands-active");
@@ -297,7 +324,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Ancak oyun o kadar hareketliymiş ki, bir an dengelerini kaybetmişler. Yerler karışmış!`,
       action: () => {
-        // GÜNCELLEME: Hızlı bir yer değiştirme ve dönme efekti
         sun.style.left = "70%";
         moon.style.left = "30%";
         sun.style.transform = "translate(-50%, -50%) rotate(180deg)";
@@ -312,7 +338,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("wistful");
         moon.classList.add("wistful");
-        // GÜNCELLEME: Duraksama anı, dönme normale döner
         sun.style.transform = "translate(-50%, -50%) rotate(0deg)";
         moon.style.transform = "translate(-50%, -50%) rotate(0deg)";
       },
@@ -329,7 +354,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Böylece anlamışlar ki, yan yana olmasalar bile kalpleri hep birlikte atıyor.`,
       action: () => {
-        // GÜNCELLEME: Tekrar merkeze yakınlaşma
         sun.style.left = "55%";
         moon.style.left = "45%";
         sun.classList.add("happy");
@@ -339,7 +363,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Tam o sırada Güneş şakacıktan kaşlarını çatmış. "Hey! Bak bütün gezegenler sana bakıyor, benim pabucum dama atıldı galiba!"`,
       action: () => {
-        sun.classList.add("angry"); // Şakacı kızgınlık
+        sun.classList.add("angry");
         sun.style.boxShadow =
           "0 0 70px #FF4500, 0 0 140px #FF0000, 0 0 200px var(--sun-color)";
         moon.classList.add("surprised");
@@ -355,8 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Bu sefer Ay biraz somurtmuş: "Ama sen de ışığını herkese bol bol dağıtıyorsun, bana kalmayacak diye korkuyorum."`,
       action: () => {
-        moon.classList.add("angry"); // Şakacı trip
-        // GÜNCELLEME: Somurturken kollarını kavuştursun (eller kaybolsun)
+        moon.classList.add("angry");
         moon.classList.remove("hands-active");
       },
     },
@@ -372,7 +395,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         moon.classList.add("wistful");
         sun.classList.add("surprised");
-        // GÜNCELLEME: Sinsice yaklaşma planı
         moon.style.left = "60%";
         moon.style.top = "30%";
         moon.style.transform = "translate(-50%, -50%) rotate(-45deg)";
@@ -382,15 +404,14 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Ve hoop diye Güneş'in tam önüne atlamış! "Ce-eee!"`,
       action: () => {
-        sun.classList.add("angry"); // Şaşkınlık tepkisi
+        sun.classList.add("angry");
         moon.classList.add("surprised");
-        // GÜNCELLEME: Tam önüne geçiş
         sun.style.left = "50%";
         moon.style.left = "50%";
         moon.style.top = "50%";
-        sun.style.transform = "translate(-50%, -50%) scale(1.2)"; // Güneş şaşkınlıktan büyüsün
+        sun.style.transform = "translate(-50%, -50%) scale(1.2)";
         moon.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
-        moon.style.zIndex = "15"; // Ay öne geçsin
+        moon.style.zIndex = "15";
         moon.classList.add("hands-active");
       },
     },
@@ -399,11 +420,10 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("sad");
         moon.classList.add("sad");
-        // GÜNCELLEME: Tutulma pozisyonu
         sun.style.left = "50%";
         moon.style.left = "50%";
-        world.style.left = "50%"; // Dünya merkeze gelsin
-        world.style.top = "80%"; // Dünya aşağıda dursun
+        world.style.left = "50%";
+        world.style.top = "80%";
         world.style.opacity = "1";
         moon.style.zIndex = "15";
       },
@@ -422,13 +442,12 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.style.boxShadow =
           "0 0 20px var(--sun-color), 0 0 40px var(--sun-glow1)";
         moon.style.boxShadow = "0 0 5px #444";
-        moon.style.background = "#333"; // Ay iyice kararsın
+        moon.style.background = "#333";
       },
     },
     {
       text: `Güneş ışığını gönderemediği için üzgünmüş. Ay ise kendi rengini kaybetmiş, kapkara kalmış. Oyun biraz fazla ileri gitmiş.`,
       action: () => {
-        // Durum devam ediyor
         sun.classList.add("sad");
         moon.classList.add("sad");
         sun.style.left = "50%";
@@ -445,21 +464,17 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       text: `Güneş şöyle demiş: "Bak, ikimiz de farklıyız. Ben dünyayı aydınlatmalıyım, sen de geceyi süslemelisin. Birbirimizin önüne geçersek işler karışıyor."`,
-      action: () => {
-        // Aynı sahne
-      },
+      action: () => {},
     },
     {
       text: `Ay karanlıkta kaldığı o an düşünmüş. "Haklısın Güneş. Ben senin ışığın olmadan görünmez oluyorum. Biz harika bir ekibiz, birbirimize engel olmamalıyız."`,
-      action: () => {
-        // Aynı sahne
-      },
+      action: () => {},
     },
     {
       text: `Karanlığın içinde Ay, kendi içindeki gücü hissetmeye başlamış. "Tamam," demiş, "Şimdi kenara çekileceğim ve görevime döneceğim."`,
       action: () => {
         moon.style.boxShadow = "0 0 10px #add8e6, 0 0 20px #4682b4";
-        moon.style.background = "#444"; // Hafifçe aydınlanmaya başlasın
+        moon.style.background = "#444";
         sun.classList.add("sad");
         moon.classList.add("sad");
         moon.style.zIndex = "15";
@@ -470,12 +485,11 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         moon.classList.remove("sad");
         moon.classList.add("happy");
-        // GÜNCELLEME: Çekilme hareketi başlıyor
         moon.style.left = "60%";
         moon.style.boxShadow =
           "0 0 20px #add8e6, 0 0 35px #4682b4, 0 0 50px #ffffff";
         sun.classList.add("sad");
-        moon.style.zIndex = "2"; // Z-index normale dönsün
+        moon.style.zIndex = "2";
       },
     },
     {
@@ -484,18 +498,16 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.classList.remove("sad");
         sun.classList.add("wistful");
         moon.classList.add("happy");
-        // GÜNCELLEME: Çekilme devam ediyor
         moon.style.left = "70%";
       },
     },
     {
       text: `Ve nihayet Ay tamamen çekilince, Güneş'in ışığı tekrar dünyaya vurmuş! Kuşlar ötüşmeye, çiçekler açmaya başlamış.`,
       action: () => {
-        sun.classList.add("surprised"); // Mutlu şaşkınlık
+        sun.classList.add("surprised");
         moon.classList.add("happy");
         moon.style.boxShadow =
           "0 0 20px #add8e6, 0 0 35px #4682b4, 0 0 50px #ffffff";
-        // GÜNCELLEME: Güneş eski parlaklığına dönsün
         sun.style.boxShadow = `0 0 50px var(--sun-color), 0 0 100px var(--sun-glow1), 0 0 150px var(--sun-glow2)`;
         moon.style.left = "80%";
       },
@@ -513,7 +525,6 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `O günden sonra Ay ve Güneş, gökyüzünün kurallarına hep uymuşlar. Biliyorlarmış ki, gerçek arkadaşlık birbirine engel olmak değil, birbirini parlatmaktır.`,
       action: () => {
-        // GÜNCELLEME: Normal pozisyonlarına dönüş
         sun.style.left = "25%";
         moon.style.left = "75%";
         moon.style.background = "var(--moon-color)";
@@ -534,7 +545,6 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
-        // GÜNCELLEME: Finalde birbirlerine el sallasınlar
         sun.style.left = "40%";
         sun.style.transform = "translate(-50%, -50%) rotate(-15deg)";
         moon.style.left = "60%";
@@ -544,8 +554,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  // GÜNCELLEME: hands-active sınıfını da sıfırla
   function resetAllStates() {
+    document.querySelectorAll(".light-dust").forEach((el) => el.remove());
+
     const expressions = [
       "happy",
       "sad",
@@ -628,7 +639,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   universe.addEventListener("click", (e) => {
-    // .star sınıfını kaldırdığımız için artık sadece .memory-star kontrolü yeterli
     if (e.target.classList.contains("memory-star")) {
       memoryText.textContent = e.target.dataset.memory;
       memoryModal.classList.add("active");
@@ -652,49 +662,3 @@ document.addEventListener("DOMContentLoaded", () => {
   scenes.forEach((scene) => observer.observe(scene));
   createFinalQuote();
 });
-// SİMLERİ OLUŞTURAN FONKSİYON
-function createSneezeDust() {
-  // Önce varsa eski tozları temizle
-  document.querySelectorAll(".light-dust").forEach((el) => el.remove());
-
-  const dustCount = 50; // Kaç tane sim olsun?
-  // Güneş o sahnede nerede? (Scene 15'te left: 42%, top: 50% civarında olacak)
-  const sunCenterX = 42;
-  const sunCenterY = 50;
-
-  for (let i = 0; i < dustCount; i++) {
-    const dust = document.createElement("div");
-    dust.classList.add("light-dust");
-
-    // Güneşin etrafına rastgele dağıt
-    // X ekseninde %30 ile %54 arası, Y ekseninde %40 ile %60 arası
-    const randomX = sunCenterX + (Math.random() * 24 - 12);
-    const randomY = sunCenterY + (Math.random() * 20 - 10);
-
-    dust.style.left = `${randomX}%`;
-    dust.style.top = `${randomY}%`;
-
-    // Rastgele boyutlar (küçük ve büyük simler)
-    const size = Math.random() * 4 + 2;
-    dust.style.width = `${size}px`;
-    dust.style.height = `${size}px`;
-
-    // Hafifçe yanıp sönmeleri için gecikme
-    dust.style.animationDelay = `${Math.random() * 0.5}s`;
-
-    universe.appendChild(dust);
-  }
-}
-
-// SİMLERİ DÜŞÜREN VE SİLEN FONKSİYON
-function removeSneezeDust() {
-  const dusts = document.querySelectorAll(".light-dust");
-  dusts.forEach((dust) => {
-    dust.classList.add("falling"); // CSS'teki düşme efektini tetikle
-  });
-
-  // 2 saniye sonra tamamen DOM'dan sil (performans için)
-  setTimeout(() => {
-    dusts.forEach((dust) => dust.remove());
-  }, 2000);
-}
