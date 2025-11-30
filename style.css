@@ -95,7 +95,7 @@ body {
 .memory-star {
   position: absolute; /* Konumlandırma için gerekli */
   opacity: 1; /* Görünür olduğundan emin ol */
-  background-color: #ffd700; /* Belirgin altın rengi */
+  background-color: #ff4ba5; /* Belirgin altın rengi */
   border-radius: 50%;
   cursor: pointer;
   z-index: 15; /* Diğer yıldızların ve gezegenlerin üzerinde */
