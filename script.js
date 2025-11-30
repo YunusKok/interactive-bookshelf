@@ -9,10 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const memoryText = document.getElementById("memory-text");
   const closeModal = document.querySelector(".close-modal");
 
+  // ============================================================
+  // === YENİ FONKSİYONLAR ARTIK BURADA (İÇERİDE) ===
+  // ============================================================
+
+  // SİMLERİ OLUŞTURAN FONKSİYON
   function createSneezeDust() {
+    // Önce varsa eski tozları temizle
     document.querySelectorAll(".light-dust").forEach((el) => el.remove());
 
-    const dustCount = 50;
+    const dustCount = 50; // Kaç tane sim olsun?
+    // Güneş o sahnede nerede?
     const sunCenterX = 42;
     const sunCenterY = 50;
 
@@ -20,32 +27,39 @@ document.addEventListener("DOMContentLoaded", () => {
       const dust = document.createElement("div");
       dust.classList.add("light-dust");
 
+      // Güneşin etrafına rastgele dağıt
       const randomX = sunCenterX + (Math.random() * 24 - 12);
       const randomY = sunCenterY + (Math.random() * 20 - 10);
 
       dust.style.left = `${randomX}%`;
       dust.style.top = `${randomY}%`;
 
+      // Rastgele boyutlar
       const size = Math.random() * 4 + 2;
       dust.style.width = `${size}px`;
       dust.style.height = `${size}px`;
 
+      // Hafifçe yanıp sönmeleri için gecikme
       dust.style.animationDelay = `${Math.random() * 0.5}s`;
 
-      universe.appendChild(dust);
+      universe.appendChild(dust); // ARTIK UNIVERSE'E ERİŞEBİLİYOR!
     }
   }
 
+  // SİMLERİ DÜŞÜREN VE SİLEN FONKSİYON
   function removeSneezeDust() {
     const dusts = document.querySelectorAll(".light-dust");
     dusts.forEach((dust) => {
-      dust.classList.add("falling");
+      dust.classList.add("falling"); // CSS'teki düşme efektini tetikle
     });
 
+    // 2 saniye sonra tamamen DOM'dan sil
     setTimeout(() => {
       dusts.forEach((dust) => dust.remove());
     }, 2000);
   }
+
+  // ============================================================
 
   function createTwinklingStars() {
     const starCount = 200;
@@ -126,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  // HİKAYE VERİSİ
   const storyData = [
     {
       text: `Evvel zaman içinde, gökyüzünün kocaman oyun parkında, iki çok iyi arkadaş yaşarmış: Biri pırıl pırıl Güneş, diğeri ise tonton Ay.`,
@@ -266,7 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.classList.add("surprised");
         moon.classList.add("happy");
         sun.style.transform = "translate(-50%, -50%) scale(1.1) rotate(-5deg)";
-
         createSneezeDust();
       },
     },
@@ -279,7 +291,6 @@ document.addEventListener("DOMContentLoaded", () => {
         moon.style.left = "65%";
         moon.style.transform = "translate(-50%, -50%) rotate(20deg)";
         moon.classList.add("hands-active");
-
         removeSneezeDust();
       },
     },
@@ -555,6 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   function resetAllStates() {
+    // YENİ: Ekrandaki tüm ışık tozlarını temizle
     document.querySelectorAll(".light-dust").forEach((el) => el.remove());
 
     const expressions = [
