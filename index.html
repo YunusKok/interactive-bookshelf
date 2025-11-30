@@ -1,53 +1,276 @@
 <!DOCTYPE html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bir Işığın İki Parıltısı - İnteraktif Hikaye</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div id="preloader">
-        <div class="loader-icon"></div>
-    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İnteraktif Hikaye Kitaplığı</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300&display=swap");
 
-    <div id="universe">
-        <div id="sun">
-            <div class="cheek left"></div>
-            <div class="cheek right"></div>
-            <div class="face">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="mouth"></div>
+      body {
+        margin: 0;
+        padding: 0;
+        background: radial-gradient(
+          ellipse at bottom,
+          #0f1520 0%,
+          #050505 100%
+        );
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Lato", sans-serif;
+        color: #fff;
+        overflow: hidden;
+      }
+
+      /* --- BAŞLIK ALANI --- */
+      header {
+        text-align: center;
+        margin-top: 50px;
+        z-index: 10;
+      }
+
+      h1 {
+        font-family: "Cinzel", serif;
+        font-size: 3rem;
+        color: #e0e0e0;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+      }
+
+      p.subtitle {
+        font-size: 1.2rem;
+        color: #888;
+      }
+
+      /* --- KİTAPLIK RAFI (GRID) --- */
+      .library-grid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 60px;
+        margin-top: 80px;
+        perspective: 1000px; /* 3D derinlik hissi için */
+        z-index: 10;
+      }
+
+      /* --- KİTAP TASARIMI --- */
+      .book-container {
+        position: relative;
+        width: 220px;
+        height: 340px;
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease;
+      }
+
+      .book-container:hover {
+        transform: translateY(-20px) rotateY(-10deg);
+      }
+
+      /* Kitabın kendisi */
+      .book {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform-style: preserve-3d;
+        box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5);
+        border-radius: 4px 10px 10px 4px;
+      }
+
+      /* --- ÖN KAPAK (Hikayenin İlk Sayfası Gibi) --- */
+      .cover {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #1a1a1a;
+        border-radius: 4px 10px 10px 4px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 0;
+        box-sizing: border-box;
+        border-left: 5px solid #333; /* Cilt kısmı */
+        background-image: url("https://www.transparenttextures.com/patterns/stardust.png"); /* Hafif doku */
+        transform: translateZ(25px); /* Kalınlık veriyoruz */
+        box-shadow: inset 5px 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Kapak Görseli (Güneş ve Ay Sanatı) */
+      .cover-art {
+        position: relative;
+        width: 120px;
+        height: 120px;
+        margin-top: 30px;
+      }
+
+      /* CSS ile Basit Güneş */
+      .cover-sun {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        background: #ffd700;
+        border-radius: 50%;
+        box-shadow: 0 0 20px #ffa500;
+        left: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      /* CSS ile Basit Ay */
+      .cover-moon {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        background: #e0e0e0;
+        border-radius: 50%;
+        box-shadow: 0 0 15px #fff;
+        right: 0;
+        bottom: 0;
+        z-index: 2;
+      }
+
+      .book-title {
+        font-family: "Cinzel", serif;
+        font-size: 1.4rem;
+        color: #ffd700;
+        text-align: center;
+        padding: 0 15px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+      }
+
+      .author {
+        font-size: 0.8rem;
+        color: #aaa;
+        margin-bottom: 20px;
+      }
+
+      /* --- KİTABIN YAN TARAFI (Kalınlık/Omurga) --- */
+      .spine {
+        position: absolute;
+        width: 50px; /* Kitap kalınlığı */
+        height: 100%;
+        background: #111;
+        transform: rotateY(-90deg) translateZ(25px); /* Yerleştirme */
+        left: -25px; /* Ortalamak için */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+      }
+
+      .spine span {
+        color: #666;
+        transform: rotate(90deg);
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        width: 300px;
+        text-align: center;
+      }
+
+      /* --- KİTABIN SAYFALARI (Beyaz Kısım) --- */
+      .pages {
+        position: absolute;
+        width: 48px;
+        height: 96%;
+        top: 2%;
+        background: #eee;
+        right: 0;
+        transform: rotateY(90deg) translateZ(-22px);
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        background-image: linear-gradient(to right, #ccc 1px, transparent 1px);
+        background-size: 4px 100%; /* Sayfa çizgileri */
+      }
+
+      /* --- BACKGROUND YILDIZLAR --- */
+      .bg-star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: twinkle 5s infinite;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+
+      /* Linkin altı çizgisini kaldır */
+      a {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Sonsuzluk Kütüphanesi</h1>
+      <p class="subtitle">Bir hikaye seç ve ışığın peşinden git.</p>
+    </header>
+
+    <div class="library-grid">
+      <a href="story1.html">
+        <div class="book-container">
+          <div class="book">
+            <div class="cover">
+              <div class="cover-art">
+                <div class="cover-sun"></div>
+                <div class="cover-moon"></div>
+              </div>
+              <div class="book-title">Bir Işığın İki Parıltısı</div>
+              <div class="author">İnteraktif Hikaye</div>
             </div>
+            <div class="spine"><span>BÖLÜM I</span></div>
+            <div class="pages"></div>
+          </div>
         </div>
-        <div id="moon">
-            <div class="hand left"></div>
-            <div class="hand right"></div>
-            <div class="face">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="mouth"></div>
+      </a>
+
+      <div class="book-container" style="opacity: 0.5; cursor: default">
+        <div class="book">
+          <div
+            class="cover"
+            style="background-color: #222; border-left-color: #444"
+          >
+            <div
+              class="cover-art"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <span style="font-size: 3rem; color: #555">?</span>
             </div>
+            <div class="book-title" style="color: #666">Yakında...</div>
+            <div class="author">...</div>
+          </div>
+          <div class="spine" style="background: #1a1a1a"></div>
+          <div class="pages"></div>
         </div>
-        <div id="world"></div>
+      </div>
     </div>
 
-    <div id="story-scroll-container">
-        <div class="intro-title">
-            <h1>Bir Işığın İki Parıltısı</h1>
-            <p>Akışına bırak</p>
-            <span>&darr;</span>
-        </div>
-        </div>
-
-    <div id="memory-modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <p id="memory-text"></p>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
+    <script>
+      const body = document.querySelector("body");
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement("div");
+        star.className = "bg-star";
+        star.style.width = Math.random() * 2 + "px";
+        star.style.height = star.style.width;
+        star.style.top = Math.random() * 100 + "%";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.animationDelay = Math.random() * 5 + "s";
+        body.appendChild(star);
+      }
+    </script>
+  </body>
 </html>
