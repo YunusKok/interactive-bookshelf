@@ -590,28 +590,82 @@ body {
 /* === MOBİL UYUMLULUK (RESPONSIVE DESIGN) === */
 /* ================================================ */
 @media (max-width: 768px) {
+  /* --- Hikaye Metin Alanı --- */
   #story-scroll-container {
-    width: 90%;
+    width: 90%; /* Mobilde daha geniş alan */
+    max-width: none;
   }
-  .story-scene p {
-    font-size: 1.2rem;
-  }
+
   .intro-title h1 {
-    font-size: 2.2rem;
+    font-size: 2rem; /* Giriş başlığını küçült */
   }
-  .final-quote {
-    font-size: 1.8rem;
+
+  .story-scene {
+    padding: 30px 20px; /* İç boşlukları azalt */
+    margin-bottom: 60vh; /* Mobilde daha sık geçiş */
   }
+
+  .story-scene p {
+    font-size: 1.1rem; /* Yazı boyutunu optimize et */
+    line-height: 1.5;
+  }
+
+  /* --- Karakter Boyutlandırmaları --- */
+  /* Mobilde karakterler daha küçük olmalı ki üst üste binmesinler */
   #sun {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    /* Mobilde gölgeyi biraz azaltalım, performans artar */
+    box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
   }
+
   #moon {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
   }
+
   #world {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Göz ve Ağız Oranlarını Koruma */
+  .face .eye {
+    width: 18%;
+    height: 18%;
+  }
+
+  /* --- Anı Yıldızları --- */
+  .memory-star {
+    /* Mobilde parmakla basması kolay olsun diye dokunma alanını büyütelim */
+    padding: 10px;
+    margin: -10px; /* Görsel yer bozulmasın diye negatif margin */
+  }
+
+  /* --- Final Yazısı --- */
+  .final-quote {
+    font-size: 1.5rem;
+    padding: 50px 20px;
+  }
+
+  /* --- Modal (Pencere) --- */
+  .modal-content {
+    width: 85%;
+    padding: 20px;
+  }
+}
+
+/* Çok küçük ekranlar için (Eski telefonlar vb.) ekstra ayar */
+@media (max-width: 380px) {
+  #sun {
     width: 60px;
     height: 60px;
+  }
+  #moon {
+    width: 30px;
+    height: 30px;
+  }
+  .story-scene p {
+    font-size: 1rem;
   }
 }

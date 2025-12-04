@@ -217,6 +217,32 @@
       a {
         text-decoration: none;
       }
+
+      /* ========================================= */
+      /* === MOBİL UYUMLULUK (Responsive) === */
+      /* ========================================= */
+      @media (max-width: 768px) {
+        /* Başlıkları küçült */
+        h1 {
+          font-size: 2rem;
+        }
+        p.subtitle {
+          font-size: 1rem;
+        }
+
+        /* Kitaplığı dikey hale getir */
+        .library-grid {
+          flex-direction: column; /* Alt alta diz */
+          gap: 40px; /* Araları aç */
+          margin-top: 40px;
+          padding-bottom: 50px; /* Alttan boşluk bırak */
+        }
+
+        /* Mobilde hover efekti yerine tıklama hissi için */
+        .book-container:active {
+          transform: scale(0.95);
+        }
+      }
     </style>
   </head>
   <body>
