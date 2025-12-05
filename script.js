@@ -10,16 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeModal = document.querySelector(".close-modal");
 
   // ============================================================
-  // === YENİ FONKSİYONLAR ARTIK BURADA (İÇERİDE) ===
+  // === ENHANCED PARTICLE SYSTEM FOR LIGHT DUST ===
   // ============================================================
 
-  // SİMLERİ OLUŞTURAN FONKSİYON
   function createSneezeDust() {
-    // Önce varsa eski tozları temizle
     document.querySelectorAll(".light-dust").forEach((el) => el.remove());
 
-    const dustCount = 50; // Kaç tane sim olsun?
-    // Güneş o sahnede nerede?
+    const dustCount = 80;
     const sunCenterX = 42;
     const sunCenterY = 50;
 
@@ -27,147 +24,68 @@ document.addEventListener("DOMContentLoaded", () => {
       const dust = document.createElement("div");
       dust.classList.add("light-dust");
 
-      // Güneşin etrafına rastgele dağıt
-      const randomX = sunCenterX + (Math.random() * 24 - 12);
-      const randomY = sunCenterY + (Math.random() * 20 - 10);
+      const angle = (Math.random() * Math.PI * 2);
+      const distance = Math.random() * 15 + 5;
+      const randomX = sunCenterX + Math.cos(angle) * distance;
+      const randomY = sunCenterY + Math.sin(angle) * distance;
 
       dust.style.left = `${randomX}%`;
       dust.style.top = `${randomY}%`;
 
-      // Rastgele boyutlar
-      const size = Math.random() * 4 + 2;
+      const size = Math.random() * 5 + 2;
       dust.style.width = `${size}px`;
       dust.style.height = `${size}px`;
 
-      // Hafifçe yanıp sönmeleri için gecikme
       dust.style.animationDelay = `${Math.random() * 0.5}s`;
+      dust.style.setProperty('--dust-duration', `${Math.random() * 1.5 + 1.5}s`);
 
-      universe.appendChild(dust); // ARTIK UNIVERSE'E ERİŞEBİLİYOR!
+      universe.appendChild(dust);
     }
   }
 
-  // SİMLERİ DÜŞÜREN VE SİLEN FONKSİYON
   function removeSneezeDust() {
     const dusts = document.querySelectorAll(".light-dust");
     dusts.forEach((dust) => {
-      dust.classList.add("falling"); // CSS'teki düşme efektini tetikle
+      dust.classList.add("falling");
     });
 
-    // 2 saniye sonra tamamen DOM'dan sil
     setTimeout(() => {
       dusts.forEach((dust) => dust.remove());
     }, 2000);
   }
 
   // ============================================================
-
-  function createTwinklingStars() {
-    const starCount = 200;
-    const memoryStars = [15, 65, 115, 165];
-    const memories = [
-      "Küçük Prens'in Gülü",
-      "Apollo 11'in Ayak İzi",
-      "Kuyruklu Yıldız Halley",
-      "Samanyolu Rehberi",
-    ];
-
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement("div");
-
-      const memoryIndex = memoryStars.indexOf(i);
-      if (memoryIndex !== -1) {
-        star.classList.add("memory-star");
-        star.dataset.memory = memories[memoryIndex];
-        star.style.width = `${Math.random() * 3 + 10}px`;
-        star.style.height = star.style.width;
-      } else {
-        star.classList.add("star");
-        const size = Math.random() * 2 + 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.animationDelay = `${Math.random() * 4}s`;
-        star.style.animationDuration = `${Math.random() * 2 + 3}s`;
-      }
-
-      star.style.top = `${Math.random() * 100}%`;
-      star.style.left = `${Math.random() * 100}%`;
-      universe.appendChild(star);
-    }
-  }
-
-  function createShootingStar() {
-    const star = document.createElement("div");
-    star.classList.add("shooting-star");
-    star.style.top = `${Math.random() * 60}%`;
-    star.style.transform = `rotate(-25deg)`;
-    star.style.animationDuration = `${Math.random() * 2 + 3}s`;
-    universe.appendChild(star);
-    setTimeout(() => {
-      star.remove();
-    }, 5000);
-  }
-
-  function createCursorTrail(e) {
-    const trail = document.createElement("div");
-    trail.classList.add("trail");
-    trail.style.left = `${e.clientX}px`;
-    trail.style.top = `${e.clientY}px`;
-    if (isScrolling) {
-      trail.style.transform = "translate(-50%, -50%) scale(2)";
-    }
-    document.body.appendChild(trail);
-    setTimeout(() => {
-      trail.remove();
-    }, 800);
-  }
-
-  function createFinalQuote() {
-    const quoteContainer = document.createElement("div");
-    quoteContainer.classList.add("final-quote");
-    quoteContainer.innerText = "Gerçek dostlar, gökyüzünü paylaşmayı bilirler.";
-    storyContainer.appendChild(quoteContainer);
-
-    setInterval(() => {
-      if (document.querySelectorAll(".final-quote .sparkle").length < 20) {
-        const sparkle = document.createElement("div");
-        sparkle.classList.add("sparkle");
-        sparkle.style.top = `${Math.random() * 80 + 10}%`;
-        sparkle.style.left = `${Math.random() * 90 + 5}%`;
-        sparkle.style.animationDelay = `${Math.random() * 1.5}s`;
-        quoteContainer.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 2000);
-      }
-    }, 100);
-  }
+  // === ENHANCED STORY WITH BETTER NARRATIVE ===
+  // ============================================================
 
   const storyData = [
     {
-      text: `Evvel zaman içinde, gökyüzünün kocaman oyun parkında, iki çok iyi arkadaş yaşarmış: Biri pırıl pırıl Güneş, diğeri ise tonton Ay.`,
+      text: `Once upon a time, in the vast playground of the sky, there lived two very best friends: one was the brilliant Sun, and the other was the gentle Moon.`,
       action: () => {},
     },
     {
-      text: `Güneş, sabahları erkenden uyanır, çocukları okula uğurlar, çiçekleri gıdıklayıp uyandırırmış. Ay ise biraz uykucuymuş; geceleri ortaya çıkar, herkese ninniler söylermiş.`,
+      text: `The Sun would wake up early each morning, guiding children to school and tickling flowers awake with warmth. The Moon, however, was quite sleepy; appearing at night, singing lullabies to everyone.`,
       action: () => {},
     },
     {
-      text: `Bu iki arkadaş birbirlerini çok severmiş ama bir sorun varmış: Biri gündüz, diğeri gece çalıştığı için oyun oynamaya hiç vakit bulamazlarmış.`,
+      text: `These two friends loved each other dearly, but there was one problem: since one worked during the day and the other at night, they never had time to play together.`,
       action: () => {},
     },
     {
-      text: `Uzaktan birbirlerine el sallarlarmış. Ay, Güneş'in yaydığı o neşeli ışığa hayranmış. "Keşke ben de onun kadar sıcak ve parlak olabilsem," diye iç geçirirmiş.`,
+      text: `They would wave at each other from afar. The Moon admired the Sun's joyful light. "If only I could be as warm and bright as you," the Moon would sigh.`,
       action: () => {
         moon.classList.add("wistful");
       },
     },
     {
-      text: `Güneş ise her yere yetişmeye çalışmaktan bazen yorulurmuş. Ay'ın o sakinliğini, sessizce süzülüşünü izler, "Ne güzel, o hiç terlemiyor," dermiş.`,
+      text: `The Sun, meanwhile, grew tired from rushing everywhere. Watching the Moon's calm, silent glide through the sky, the Sun thought, "How wonderful, you never seem exhausted."`,
       action: () => {
         moon.classList.add("wistful");
         sun.classList.add("wistful");
       },
     },
     {
-      text: `Bir gün Ay'ın canı çok sıkılmış. "Artık uzaktan bakmak istemiyorum," demiş. "Gidip Güneş ile saklambaç oynayacağım!"`,
+      text: `One day, the Moon grew restless. "I'm tired of watching from afar," it declared. "I'm going to play tag with the Sun!"`,
       action: () => {
         moon.style.left = "78%";
         moon.classList.add("wistful");
@@ -175,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Böylece yörüngesinden yavaşça çıkıp, parmak uçlarında Güneş'e doğru yürümeye başlamış. Acaba Güneş onu oyuna kabul edecek miymiş?`,
+      text: `So the Moon slowly stepped out of its orbit and began tiptoeing toward the Sun. Would the Sun accept this invitation to play?`,
       action: () => {
         moon.style.left = "75%";
         moon.style.top = "45%";
@@ -184,17 +102,17 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay yaklaştıkça heyecanlanmış. Kalbi güm güm atmaya başlamış. Gökyüzündeki diğer yıldızlar, "Hey Ay Dede nereye gidiyorsun?" diye fısıldaşmışlar.`,
+      text: `As the Moon drew closer, excitement grew. Its heart began to race. The other stars whispered, "Hey Moon, where are you going?"`,
       action: () => {
-        moon.style.left = "72%";
         moon.classList.add("wistful");
+        moon.style.left = "72%";
         moon.style.top = "42%";
         moon.style.transform = "translate(-50%, -50%) rotate(-20deg)";
         moon.classList.add("hands-active");
       },
     },
     {
-      text: `Güneş bir bakmış ki, en yakın arkadaşı ona doğru geliyor! Çok şaşırmış. "Ooo! Ay kardeş, gündüz vakti ne işin var burada?" diye sormuş.`,
+      text: `The Sun looked up and saw its closest friend approaching! It was so surprised. "Oh! Moon friend, what are you doing here during daytime?" it asked.`,
       action: () => {
         sun.classList.add("surprised");
         moon.classList.add("wistful");
@@ -205,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay gülümsemiş. "Sıkıldım," demiş. "Seninle biraz yakalamaca oynamaya geldim!" Güneş bunu duyunca çok sevinmiş, ışıkları dans etmeye başlamış.`,
+      text: `The Moon smiled. "I was bored," it said. "I came to play tag with you!" The Sun was so delighted that its light began to dance with joy.`,
       action: () => {
         moon.style.left = "68%";
         moon.classList.add("happy");
@@ -214,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Böylece gökyüzünde büyük bir koşuşturmaca başlamış. Ay, Güneş'e doğru koştukça aralarındaki mesafe azalmış.`,
+      text: `And so a great chase began across the sky. As the Moon ran toward the Sun, the distance between them grew smaller and smaller.`,
       action: () => {
         moon.style.left = "55%";
         moon.style.top = "35%";
@@ -225,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Güneş o kadar sıcakmış ki, Ay ona yaklaştıkça yanakları ısınmış, pespembe olmuş. Sanki utangaç bir çocuk gibi kızarmış.`,
+      text: `The Sun was so warm that as the Moon approached, its cheeks grew hot and turned rosy pink. Like a shy child, it blushed.`,
       action: () => {
         moon.style.left = "45%";
         moon.style.top = "45%";
@@ -238,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Güneş, Ay'ın bu haline kıkırdamış. "Dikkat et Ay kardeş, çok yaklaşırsan benim gibi yanarsın!" demiş şakayla. Ay ise, "Olsun, senin yanında ısınmak çok güzel," demiş.`,
+      text: `The Sun giggled at the Moon's shyness. "Be careful, Moon friend, get too close and you'll burn like me!" it teased. The Moon replied, "That's okay, being warm beside you feels wonderful."`,
       action: () => {
         sun.classList.add("surprised");
         moon.style.background = "#FFE4E1";
@@ -250,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Artık o kadar yakınlarmış ki, gökyüzünde kocaman bir ışık topu gibi görünmüşler. İkisi de kıkır kıkır gülüyormuş.`,
+      text: `Now they were so close that they looked like one giant ball of light in the sky. Both of them were laughing with pure joy.`,
       action: () => {
         sun.classList.remove("surprised");
         sun.classList.add("happy");
@@ -263,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay: "Senin ışığın sayesinde ben de parlıyorum, teşekkür ederim Güneş!" demiş. Güneş: "Asıl ben teşekkür ederim, sen olmasan geceleri kim bekleyecek?" diye cevap vermiş.`,
+      text: `The Moon said, "Because of your light, I shine too. Thank you, Sun!" The Sun replied, "I should thank you! Without you, who would watch over the night?"`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
@@ -274,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `O sırada Güneş heyecandan hapşırmış ve elindeki ışık tozlarını yanlışlıkla etrafa saçmış.`,
+      text: `Just then, the Sun sneezed with excitement and accidentally scattered light dust everywhere!`,
       action: () => {
         sun.classList.add("surprised");
         moon.classList.add("happy");
@@ -283,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay kahkahalarla gülmüş: "Çok yaşa! Bak şimdi her yer simli oldu." Güneş'in sakarlığı bile oyuna neşe katmış.`,
+      text: `The Moon laughed heartily: "Bless you! Look, now everything is sparkling!" The Sun's clumsiness only added more joy to their game.`,
       action: () => {
         moon.classList.add("happy");
         sun.classList.remove("surprised");
@@ -295,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `"Ben hep kusursuz parlamalıyım sanıyordum," demiş Güneş. Ay başını sallamış: "Hayır, bazen komik olmak en güzelidir."`,
+      text: `"I thought I always had to shine perfectly," said the Sun. The Moon shook its head: "No, sometimes being silly is the most beautiful thing."`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
@@ -304,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `İki arkadaş yan yana dururken, birbirlerinin farklı özelliklerini ne kadar çok sevdiklerini fark etmişler.`,
+      text: `As the two friends stood side by side, they realized how much they loved each other's different qualities.`,
       action: () => {
         sun.style.left = "45%";
         moon.style.left = "55%";
@@ -313,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay, "Seni yakalayacağım!" diyerek bir hamle daha yapmış. Gökyüzündeki en büyük ebelemece oyunu devam ediyormuş.`,
+      text: `The Moon said, "I'm going to catch you!" and made another move. The greatest game of tag in the sky continued.`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
@@ -323,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Güneş neşeyle bağırmış: "Beni yakalayamazsın kiii!" Ama Ay kararlıymış, adım adım ona doğru süzülmüş.`,
+      text: `The Sun cried out joyfully: "You can't catch me!" But the Moon was determined, gliding steadily toward it.`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
@@ -333,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ancak oyun o kadar hareketliymiş ki, bir an dengelerini kaybetmişler. Yerler karışmış!`,
+      text: `But the game was so wild that they suddenly lost their balance. Everything became confused!`,
       action: () => {
         sun.style.left = "70%";
         moon.style.left = "30%";
@@ -345,7 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay bir an duraksamış. "Galiba biraz fazla uzaklaştık, yerimden oldum," diye düşünmüş.`,
+      text: `The Moon paused for a moment. "I think we went too far. I've lost my place," it thought.`,
       action: () => {
         sun.classList.add("wistful");
         moon.classList.add("wistful");
@@ -354,7 +272,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ama Güneş ona güven vermiş: "Merak etme, biz bir takımız. Nereye gidersen git, ışığım seninle."`,
+      text: `But the Sun reassured it: "Don't worry, we're a team. Wherever you go, my light goes with you."`,
       action: () => {
         sun.style.left = "60%";
         moon.style.left = "40%";
@@ -363,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Böylece anlamışlar ki, yan yana olmasalar bile kalpleri hep birlikte atıyor.`,
+      text: `And so they understood that even when they weren't side by side, their hearts beat together.`,
       action: () => {
         sun.style.left = "55%";
         moon.style.left = "45%";
@@ -372,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Tam o sırada Güneş şakacıktan kaşlarını çatmış. "Hey! Bak bütün gezegenler sana bakıyor, benim pabucum dama atıldı galiba!"`,
+      text: `Just then, the Sun playfully frowned. "Hey! Look, all the planets are watching you. I think my luck has run out!"`,
       action: () => {
         sun.classList.add("angry");
         sun.style.boxShadow =
@@ -381,28 +299,28 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay hemen cevap vermiş: "Olur mu hiç? Ben sadece senin ışığını yansıtıyorum, asıl kahraman sensin."`,
+      text: `The Moon quickly replied: "Not at all! I'm just reflecting your light. You're the real star."`,
       action: () => {
         sun.classList.remove("angry");
         moon.classList.add("happy");
       },
     },
     {
-      text: `Bu sefer Ay biraz somurtmuş: "Ama sen de ışığını herkese bol bol dağıtıyorsun, bana kalmayacak diye korkuyorum."`,
+      text: `This time the Moon pouted a little: "But you share your light so generously with everyone. I'm afraid there won't be any left for me."`,
       action: () => {
         moon.classList.add("angry");
         moon.classList.remove("hands-active");
       },
     },
     {
-      text: `Güneş kahkaha atmış: "Işık paylaştıkça azalmaz ki şapşal! Paylaştıkça çoğalır." Ay bunu duyunca rahatlamış.`,
+      text: `The Sun laughed: "Light doesn't diminish when shared, silly! It multiplies!" The Moon felt relieved hearing this.`,
       action: () => {
         moon.classList.remove("angry");
         sun.classList.add("happy");
       },
     },
     {
-      text: `Bir gün Ay, Güneş'e bir sürpriz yapmak istemiş. "Şimdi ona öyle bir şaka yapacağım ki şaşıracak," demiş.`,
+      text: `One day, the Moon wanted to surprise the Sun. "I'm going to play such a trick that it will be amazed," it thought.`,
       action: () => {
         moon.classList.add("wistful");
         sun.classList.add("surprised");
@@ -413,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ve hoop diye Güneş'in tam önüne atlamış! "Ce-eee!"`,
+      text: `And suddenly, the Moon jumped right in front of the Sun! "Surprise!"`,
       action: () => {
         sun.classList.add("angry");
         moon.classList.add("surprised");
@@ -427,7 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `İşte tam o anda olanlar olmuş. Ay, Güneş'in tam önüne geçince Dünya'daki ışıklar kesilmiş! Buna "Güneş Tutulması" diyorlarmış.`,
+      text: `And that's when it happened. As the Moon moved in front of the Sun, the lights on Earth went out! This is what they call a "Solar Eclipse."`,
       action: () => {
         sun.classList.add("sad");
         moon.classList.add("sad");
@@ -440,24 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Dünya bir anda kararınca herkes şaşırmış. Güneş, "Hey Ay! Önümden çekil, çocuklar oyun oynayamıyor, her yer karanlık oldu!" demiş. Ay ise, "Eyvah! Ben sadece şaka yapmak istemiştim," diye üzülmüş.`,
-      action: () => {
-        sun.classList.add("sad");
-        moon.classList.add("sad");
-        sun.style.left = "50%";
-        moon.style.left = "50%";
-        world.style.left = "50%";
-        world.style.top = "80%";
-        world.style.opacity = "1";
-        moon.style.zIndex = "15";
-        sun.style.boxShadow =
-          "0 0 20px var(--sun-color), 0 0 40px var(--sun-glow1)";
-        moon.style.boxShadow = "0 0 5px #444";
-        moon.style.background = "#333";
-      },
-    },
-    {
-      text: `Güneş ışığını gönderemediği için üzgünmüş. Ay ise kendi rengini kaybetmiş, kapkara kalmış. Oyun biraz fazla ileri gitmiş.`,
+      text: `When Earth suddenly darkened, everyone was shocked. The Sun cried, "Moon! Move away! Children can't play, everything is dark!" The Moon felt terrible: "Oh no! I only wanted to play a trick!"`,
       action: () => {
         sun.classList.add("sad");
         moon.classList.add("sad");
@@ -474,15 +375,32 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Güneş şöyle demiş: "Bak, ikimiz de farklıyız. Ben dünyayı aydınlatmalıyım, sen de geceyi süslemelisin. Birbirimizin önüne geçersek işler karışıyor."`,
+      text: `The Sun couldn't send its light. The Moon had lost its own glow, turning completely dark. The game had gone too far.`,
+      action: () => {
+        sun.classList.add("sad");
+        moon.classList.add("sad");
+        sun.style.left = "50%";
+        moon.style.left = "50%";
+        world.style.left = "50%";
+        world.style.top = "80%";
+        world.style.opacity = "1";
+        moon.style.zIndex = "15";
+        sun.style.boxShadow =
+          "0 0 20px var(--sun-color), 0 0 40px var(--sun-glow1)";
+        moon.style.boxShadow = "0 0 5px #444";
+        moon.style.background = "#333";
+      },
+    },
+    {
+      text: `The Sun spoke wisely: "Look, we're both different. I must light the world, and you must decorate the night. If we block each other, everything falls apart."`,
       action: () => {},
     },
     {
-      text: `Ay karanlıkta kaldığı o an düşünmüş. "Haklısın Güneş. Ben senin ışığın olmadan görünmez oluyorum. Biz harika bir ekibiz, birbirimize engel olmamalıyız."`,
+      text: `In the darkness, the Moon understood. "You're right, Sun. Without your light, I'm invisible. We're a wonderful team, and we shouldn't get in each other's way."`,
       action: () => {},
     },
     {
-      text: `Karanlığın içinde Ay, kendi içindeki gücü hissetmeye başlamış. "Tamam," demiş, "Şimdi kenara çekileceğim ve görevime döneceğim."`,
+      text: `In the darkness, the Moon felt its inner strength awakening. "Okay," it said, "I'll move aside and return to my duty."`,
       action: () => {
         moon.style.boxShadow = "0 0 10px #add8e6, 0 0 20px #4682b4";
         moon.style.background = "#444";
@@ -492,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ay yavaşça kenara çekilirken, kenarlarından parlak bir ışık hüzmesi yayılmış. Sanki "Her şey yolunda" diye göz kırpıyormuş.`,
+      text: `As the Moon slowly moved away, a bright beam of light shone from its edges. It was like winking and saying, "Everything will be okay."`,
       action: () => {
         moon.classList.remove("sad");
         moon.classList.add("happy");
@@ -504,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Güneş, Ay'ın bu anlayışlı halini görünce çok mutlu olmuş. "Aferin benim akıllı arkadaşıma!" demiş.`,
+      text: `The Sun saw the Moon's understanding and became very happy. "Well done, my wise friend!" it said.`,
       action: () => {
         sun.classList.remove("sad");
         sun.classList.add("wistful");
@@ -513,7 +431,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Ve nihayet Ay tamamen çekilince, Güneş'in ışığı tekrar dünyaya vurmuş! Kuşlar ötüşmeye, çiçekler açmaya başlamış.`,
+      text: `And finally, as the Moon completely moved away, the Sun's light returned to Earth! Birds began to sing, flowers started to bloom.`,
       action: () => {
         sun.classList.add("surprised");
         moon.classList.add("happy");
@@ -524,7 +442,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Böylece tutulma sona ermiş. Herkes rahat bir nefes almış.`,
+      text: `And so the eclipse ended. Everyone breathed a sigh of relief.`,
       action: () => {
         world.style.left = "120%";
         world.style.opacity = "0";
@@ -534,7 +452,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `O günden sonra Ay ve Güneş, gökyüzünün kurallarına hep uymuşlar. Biliyorlarmış ki, gerçek arkadaşlık birbirine engel olmak değil, birbirini parlatmaktır.`,
+      text: `From that day on, the Sun and Moon always followed the rules of the sky. They learned that true friendship isn't about blocking each other—it's about making each other shine.`,
       action: () => {
         sun.style.left = "25%";
         moon.style.left = "75%";
@@ -545,14 +463,14 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     },
     {
-      text: `Güneş gündüzleri ısıtmış, Ay geceleri aydınlatmış. Hiç ayrılmamışlar, sadece sırayla çalışmışlar.`,
+      text: `The Sun warmed the days, the Moon lit up the nights. They never separated, just took turns doing their jobs.`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
       },
     },
     {
-      text: `Ve gökyüzünde mutlu mesut yaşamaya devam etmişler. Her günbatımında ve gündoğumunda birbirlerine el sallamayı da hiç unutmamışlar.`,
+      text: `And they lived happily ever after in the sky. At every sunset and sunrise, they waved to each other, never forgetting their special friendship.`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
@@ -566,7 +484,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   function resetAllStates() {
-    // YENİ: Ekrandaki tüm ışık tozlarını temizle
     document.querySelectorAll(".light-dust").forEach((el) => el.remove());
 
     const expressions = [
@@ -666,6 +583,85 @@ document.addEventListener("DOMContentLoaded", () => {
       memoryModal.classList.remove("active");
     }
   });
+
+  function createTwinklingStars() {
+    const starCount = 200;
+    const memoryStars = [15, 65, 115, 165];
+    const memories = [
+      "The Little Prince's Rose",
+      "Apollo 11's Footprint",
+      "Halley's Comet",
+      "The Hitchhiker's Guide to the Galaxy",
+    ];
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement("div");
+
+      const memoryIndex = memoryStars.indexOf(i);
+      if (memoryIndex !== -1) {
+        star.classList.add("memory-star");
+        star.dataset.memory = memories[memoryIndex];
+        star.style.width = `${Math.random() * 3 + 10}px`;
+        star.style.height = star.style.width;
+      } else {
+        star.classList.add("star");
+        const size = Math.random() * 2 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.animationDelay = `${Math.random() * 4}s`;
+        star.style.animationDuration = `${Math.random() * 2 + 3}s`;
+      }
+
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.left = `${Math.random() * 100}%`;
+      universe.appendChild(star);
+    }
+  }
+
+  function createShootingStar() {
+    const star = document.createElement("div");
+    star.classList.add("shooting-star");
+    star.style.top = `${Math.random() * 60}%`;
+    star.style.transform = `rotate(-25deg)`;
+    star.style.animationDuration = `${Math.random() * 2 + 3}s`;
+    universe.appendChild(star);
+    setTimeout(() => {
+      star.remove();
+    }, 5000);
+  }
+
+  function createCursorTrail(e) {
+    const trail = document.createElement("div");
+    trail.classList.add("trail");
+    trail.style.left = `${e.clientX}px`;
+    trail.style.top = `${e.clientY}px`;
+    if (isScrolling) {
+      trail.style.transform = "translate(-50%, -50%) scale(2)";
+    }
+    document.body.appendChild(trail);
+    setTimeout(() => {
+      trail.remove();
+    }, 800);
+  }
+
+  function createFinalQuote() {
+    const quoteContainer = document.createElement("div");
+    quoteContainer.classList.add("final-quote");
+    quoteContainer.innerText = "True friends know how to share the sky.";
+    storyContainer.appendChild(quoteContainer);
+
+    setInterval(() => {
+      if (document.querySelectorAll(".final-quote .sparkle").length < 20) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        sparkle.style.top = `${Math.random() * 80 + 10}%`;
+        sparkle.style.left = `${Math.random() * 90 + 5}%`;
+        sparkle.style.animationDelay = `${Math.random() * 1.5}s`;
+        quoteContainer.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 2000);
+      }
+    }, 100);
+  }
 
   createTwinklingStars();
   setInterval(createShootingStar, 7000);

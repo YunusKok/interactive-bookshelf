@@ -1,81 +1,81 @@
-````markdown
-# 📚 İnteraktif Kitaplık: Bir Işığın İki Parıltısı
+# 📚 Interactive Library: Two Glimmers of Light
 
-> _"Gerçek dostlar, gökyüzünü paylaşmayı bilirler."_
+> _"True friends know how to share the sky."_
 
-**İnteraktif Kitaplık**, modern web teknolojileri kullanılarak hazırlanmış, çocuklara ve içindeki çocuğu kaybetmeyenlere yönelik sürükleyici bir dijital hikaye anlatıcılığı projesidir. Proje, ziyaretçileri 3 boyutlu bir kütüphane arayüzüyle karşılar ve seçilen kitaba tıklandığında, kaydırma (scroll) hareketleriyle yönetilen büyülü bir masala kapı aralar.
+**Interactive Library** is an immersive digital storytelling project built with modern web technologies, designed for children and the young at heart. The project greets visitors with a 3D library interface, and when a book is selected, it opens a magical tale controlled through scrolling.
 
-![Proje Durumu](https://img.shields.io/badge/Status-Tamamlandı-success) ![Lisans](https://img.shields.io/badge/License-MIT-blue)
+![Project Status](https://img.shields.io/badge/Status-Complete-success) ![License](https://img.shields.io/badge/License-MIT-blue)
 
-## 🌟 Proje Hakkında
+## 🌟 About the Project
 
-Bu proje, statik bir okuma deneyimini dinamik bir maceraya dönüştürmeyi amaçlar. Hikaye, **Güneş ve Ay'ın** gökyüzündeki tatlı çekişmesini, birbirlerini anlamalarını ve dostluklarını anlatır.
+This project transforms static reading into a dynamic adventure. The story follows the sweet journey of the **Sun and Moon** in the sky—their playful chase, mutual understanding, and the lesson that true friendship means making each other shine.
 
-Kullanıcı sayfayı aşağı kaydırdıkça:
+As users scroll down the page:
 
-- Metinler akar,
-- Karakterler (Güneş ve Ay) hareket eder ve duygusal tepkiler verir,
-- Arka plan ve atmosferik olaylar (yıldızlar, tutulmalar, ışık tozları) hikayenin akışına göre değişir.
+- Text flows naturally,
+- Characters (Sun and Moon) move and react emotionally,
+- Background and atmospheric events (stars, eclipses, light dust) change with the story's progression.
 
-## ✨ Temel Özellikler
+## ✨ Key Features
 
-- **3D Kütüphane Arayüzü:** CSS `transform-style: preserve-3d` kullanılarak oluşturulmuş, derinlik hissine sahip gerçekçi kitap rafı tasarımı.
-- **Scroll-Tetikli Anlatım:** `Intersection Observer API` ile kullanıcının okuma hızına göre senkronize olan sahne geçişleri.
-- **Dinamik Karakter İfadeleri:** Güneş ve Ay'ın yüz ifadeleri (mutlu, üzgün, şaşkın, kızgın) hikayenin duygusuna göre anlık değişir.
-- **Gelişmiş Görsel Efektler:**
-  - ✨ Rastgele oluşan ve parıldayan yıldızlar.
-  - ☄️ Kayan yıldız animasyonları.
-  - 🖱️ Mouse hareketini takip eden ışık izi (Cursor trail).
-  - 🌬️ **Özel Parçacık Sistemi:** Güneş hapşırdığında ortaya çıkan ve yerçekimiyle düşen "ışık tozu" simülasyonu.
-- **Anı Yıldızları:** Tıklandığında özel mesajlar içeren interaktif "Anı Yıldızları (Easter Egg)".
-- **Responsive Tasarım:** Mobil, tablet ve masaüstü cihazlarla tam uyumlu.
+- **3D Library Interface:** Using CSS `transform-style: preserve-3d`, a realistic 3D bookshelf with depth perception.
+- **Scroll-Triggered Narrative:** `Intersection Observer API` synchronizes scene transitions with the user's reading pace.
+- **Dynamic Character Expressions:** Sun and Moon faces change expressions (happy, sad, surprised, angry, wistful) based on story emotions.
+- **Advanced Visual Effects:**
+  - ✨ Randomly generated and twinkling stars.
+  - ☄️ Shooting star animations.
+  - 🖱️ Mouse-tracking light trails.
+  - 🌬️ **Enhanced Particle System:** When the Sun sneezes, light dust particles appear and fall with gravity simulation.
+- **Memory Stars:** Interactive "Easter Egg" stars that reveal special messages when clicked.
+- **Fully Responsive:** Perfect compatibility with mobile, tablet, and desktop devices.
 
-## 🚀 Kullanılan Teknolojiler
+## 🚀 Technologies Used
 
-Bu proje herhangi bir Framework (React, Vue vb.) veya kütüphane (jQuery) kullanılmadan, tamamen **Vanilla (Saf) JavaScript** ile geliştirilmiştir.
+This project is built entirely with **Vanilla JavaScript** without any frameworks or libraries like React or jQuery.
 
-- **HTML5:** Semantik yapı ve SEO optimizasyonu.
-- **CSS3:** Flexbox, Grid, Keyframe Animasyonları ve 3D Dönüşümler.
-- **JavaScript (ES6+):** DOM manipülasyonu, Olay Dinleyicileri (Event Listeners) ve Mantıksal Akış.
+- **HTML5:** Semantic structure and SEO optimization.
+- **CSS3:** Flexbox, Grid, Keyframe Animations, and 3D Transforms.
+- **JavaScript (ES6+):** DOM manipulation, Event Listeners, and Story Logic.
 
-## 📂 Dosya Yapısı
+## 📂 File Structure
 
 ```text
-interaktif-kitaplik/
-├── index.html      # Ana Sayfa (3D Kütüphane Görünümü)
-├── story1.html     # Hikaye Sayfası (Bir Işığın İki Parıltısı)
-├── style.css       # Tüm stil, animasyon ve responsive kodları
-├── script.js       # Hikaye motoru, etkileşimler ve animasyon mantığı
-└── README.md       # Proje dökümantasyonu
+interactive-library/
+├── index.html      # Main Page (3D Library View)
+├── story1.html     # Story Page (Two Glimmers of Light)
+├── style.css       # All styles, animations, and responsive code
+├── script.js       # Story engine, interactions, and animation logic
+└── README.md       # Project documentation
 ```
-````
 
-## 🛠️ Kurulum ve Çalıştırma
+## 🛠️ Installation and Running
 
-Bu proje statik bir web sitesi olduğu için kurulum gerektirmez.
+This is a static website—no installation required.
 
-1.  Projeyi bilgisayarınıza klonlayın:
-    ```bash
-    git clone [https://github.com/YunusKok/interaktif-kitaplik.git](https://github.com/YunusKok/interaktif-kitaplik.git)
-    ```
-2.  Klasörün içindeki `index.html` dosyasına çift tıklayarak tarayıcınızda açın.
-3.  Kütüphanedeki kitaba tıklayarak hikayeyi başlatın.
+1. Clone the project to your computer:
+   ```bash
+   git clone https://github.com/YunusKok/interactive-library.git
+   ```
+2. Double-click the `index.html` file to open it in your browser.
+3. Click on a book in the library to start the story.
 
-## 📸 Ekran Görüntüleri
+## 📸 Screenshots
 
-|   3D Kütüphane Arayüzü    | İnteraktif Hikaye Sahnesi |
-| :-----------------------: | :-----------------------: |
-| ![Kütüphane](library.png) |   ![Hikaye](story.png)    |
+|   3D Library Interface    | Interactive Story Scene |
+| :-----------------------: | :---------------------: |
+| ![Library](library.png)   |  ![Story](story.png)    |
 
-## 🔮 Gelecek Planları
+## 🔮 Future Plans
 
-- [ ] Kütüphaneye yeni interaktif hikayeler eklenmesi.
-- [ ] "Kendi maceranı seç" (Choose your own adventure) yapısı.
+- [ ] Add more interactive stories to the library.
+- [ ] Implement "Choose Your Own Adventure" branching narratives.
+- [ ] Add sound effects and background music.
+- [ ] Create multilingual support.
 
-## 📝 Lisans
+## 📝 License
 
-Bu proje eğitim ve hobi amaçlı geliştirilmiştir. Kaynak gösterilerek özgürce kullanılabilir ve geliştirilebilir.
+This project was developed for educational and hobby purposes. Feel free to use and develop it further with proper attribution.
 
 ---
 
-_Geliştirici: [Yunus Mert Kök](https://github.com/YunusKok)_
+_Developer: [Yunus Mert Kök](https://github.com/YunusKok)_
