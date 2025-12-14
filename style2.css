@@ -1,0 +1,856 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Times+New+Roman&display=swap");
+
+:root {
+  --sun-color: #ffd700;
+  --sun-glow1: #ffa500;
+  --sun-glow2: #ff4500;
+  --moon-color: #e0e0e0;
+  --moon-glow: #b0c4de;
+  --text-color: #f0f0f0;
+  --transition-speed: 2.5s;
+  --dust-duration: 2s;
+}
+
+body {
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  background-color: #000;
+  color: var(--text-color);
+  cursor: default;
+}
+
+/* ======================================= */
+/* === ENHANCED PRELOADER === */
+/* ======================================= */
+#preloader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease;
+}
+#preloader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.loader-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--sun-color);
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
+  animation: pulse-loader 2s infinite ease-in-out;
+}
+@keyframes pulse-loader {
+  0%,
+  100% {
+    transform: scale(0.9);
+    box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px var(--sun-color), 0 0 80px var(--sun-glow1);
+  }
+}
+
+/* ======================================= */
+/* === UNIVERSE AND BACKGROUND === */
+/* ======================================= */
+#universe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  z-index: 1;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ======================================================== */
+/* === ENHANCED MEMORY STARS WITH BETTER EFFECTS === */
+/* ======================================================== */
+.memory-star {
+  position: absolute;
+  opacity: 1;
+  background-color: #e9fffa;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 15;
+  animation: pulse-aura 3s infinite ease-in-out;
+  box-shadow: 0 0 10px var(--sun-glow1), 0 0 20px var(--sun-glow2);
+  transition: all 0.3s ease;
+}
+
+.memory-star:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 15px #fff, 0 0 30px var(--sun-color),
+    0 0 45px var(--sun-glow1);
+}
+
+@keyframes pulse-aura {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fff, 0 0 10px var(--sun-color),
+      0 0 15px var(--sun-glow1);
+  }
+  50% {
+    transform: scale(1.5);
+    box-shadow: 0 0 10px #fff, 0 0 20px var(--sun-color),
+      0 0 30px var(--sun-glow1);
+  }
+}
+
+/* ======================================= */
+/* === ENHANCED VISUAL EFFECTS === */
+/* ======================================= */
+
+.shooting-star {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(to right, white, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: shoot 5s linear;
+}
+@keyframes shoot {
+  0% {
+    transform: translateX(-150px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120vw);
+    opacity: 0;
+  }
+}
+
+.trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  animation: fadeOut 0.8s forwards;
+}
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+/* ======================================= */
+/* === CELESTIAL BODIES WITH ENHANCED ANIMATIONS === */
+/* ======================================= */
+#sun,
+#moon,
+#world {
+  position: absolute;
+  border-radius: 50%;
+  transition: all var(--transition-speed) cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform, left, top, box-shadow, background-color;
+  z-index: 2;
+}
+#sun {
+  width: 150px;
+  height: 150px;
+  background: var(--sun-color);
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 50px var(--sun-color), 0 0 100px var(--sun-glow1),
+    0 0 150px var(--sun-glow2);
+}
+#moon {
+  width: 60px;
+  height: 60px;
+  background: var(--moon-color);
+  top: 50%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px #ffffff, 0 0 30px var(--moon-glow);
+}
+#world {
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  left: -100px;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 10;
+  background: url(https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg);
+  background-size: 200% 100%;
+  box-shadow: inset 15px 0 30px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(120, 180, 255, 0.5);
+  animation: spin-world 40s linear infinite;
+}
+@keyframes spin-world {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ======================================= */
+/* === FACE EXPRESSIONS WITH SMOOTH TRANSITIONS === */
+/* ======================================= */
+.face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+.eye {
+  position: absolute;
+  top: 35%;
+  width: 15%;
+  height: 15%;
+  background: #2c2c2c;
+  border-radius: 50%;
+  transition: all calc(var(--transition-speed) / 2) ease-in-out;
+}
+.eye.left {
+  left: 25%;
+}
+.eye.right {
+  right: 25%;
+}
+.mouth {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 5%;
+  background: #2c2c2c;
+  border-radius: 2px;
+  transition: all 0.5s ease-in-out;
+}
+.happy .mouth {
+  height: 20%;
+  top: 55%;
+  border-radius: 0 0 70px 70px;
+  background: transparent;
+  border-bottom: 5px solid #2c2c2c;
+}
+.sad .mouth {
+  height: 20%;
+  top: 65%;
+  border-radius: 70px 70px 0 0;
+  background: transparent;
+  border-top: 5px solid #2c2c2c;
+}
+.surprised .mouth {
+  width: 20%;
+  height: 20%;
+  border-radius: 50%;
+}
+.angry .eye {
+  top: 30%;
+  height: 5%;
+  border-radius: 0;
+}
+#sun.angry .eye.left,
+#moon.angry .eye.left {
+  transform: rotate(20deg);
+}
+#sun.angry .eye.right,
+#moon.angry .eye.right {
+  transform: rotate(-20deg);
+}
+.wistful .eye {
+  top: 40%;
+  height: 5%;
+  border-radius: 20px 20px 0 0;
+  background: transparent;
+  border-top: 3px solid #2c2c2c;
+}
+.wistful .mouth {
+  width: 25%;
+  height: 2px;
+  top: 65%;
+}
+.cheek {
+  position: absolute;
+  width: 25%;
+  height: 15%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 105, 180, 0.6),
+    transparent 70%
+  );
+  border-radius: 50%;
+  top: 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 6;
+}
+.cheek.left {
+  left: 15%;
+}
+.cheek.right {
+  right: 15%;
+}
+
+/* ======================================= */
+/* === ENHANCED LIGHT DUST PARTICLE SYSTEM === */
+/* ======================================= */
+.light-dust {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: #ffd700;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+  box-shadow: 0 0 4px #fff, 0 0 8px #ffa500;
+  opacity: 0;
+  animation: dust-appear 0.5s forwards ease-out;
+}
+
+@keyframes dust-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+}
+
+.light-dust.falling {
+  animation: dust-fall var(--dust-duration) ease-in forwards;
+}
+
+@keyframes dust-fall {
+  0% {
+    opacity: 0.8;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.3);
+  }
+}
+
+/* ======================================= */
+/* === STORY CONTAINER AND TEXT === */
+/* ======================================= */
+#story-scroll-container {
+  position: relative;
+  z-index: 20;
+  width: 50%;
+  max-width: 650px;
+  margin: 0 auto;
+  padding-bottom: 100vh;
+}
+.intro-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  width: 100%;
+}
+.intro-title h1 {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fade-in-down 1s ease-out;
+}
+.intro-title p {
+  font-size: 1.2rem;
+  animation: fade-in-up 1s ease-out 0.2s both;
+}
+.intro-title span {
+  font-size: 3rem;
+  margin-top: 2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
+
+/* ======================================= */
+/* === ENHANCED STORY SCENES === */
+/* ======================================= */
+.story-scene {
+  position: relative;
+  margin-bottom: 50vh;
+  border-radius: 10px;
+  padding: 50px 40px;
+  background-color: rgba(10, 15, 25, 0.6);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0px 0px rgba(220, 220, 255, 0);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-in-out, opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+
+.story-scene.is-active {
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: inset 0 0 25px 3px rgba(220, 220, 255, 0.15),
+    0 0 20px rgba(255, 215, 0, 0.1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.story-scene p {
+  font-family: "Times New Roman", Times, serif;
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  text-align: center;
+  color: #e0e0e0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding-bottom: 20px;
+}
+.scene-progress {
+  position: absolute;
+  bottom: 20px;
+  right: 25px;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  z-index: 5;
+}
+
+/* ======================================= */
+/* === ENHANCED HAND ANIMATIONS === */
+/* ======================================= */
+/* ========================================= */
+
+/* ========================================= */
+/* === GÜNEŞ ATKI EFEKTİ (ULTRA GERÇEKÇİ) === */
+/* ========================================= */
+
+.sun-scarf {
+  /* --- Konum ve Temel Yapı --- */
+  position: absolute;
+  bottom: -12%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.6) translateY(20px); /* Başlangıçta gizli/küçük */
+  width: 110%;
+  height: 45px;
+  z-index: 10;
+  pointer-events: none;
+
+  /* --- Şekil: Yumuşak bir sarılış için --- */
+  border-radius: 20px 20px 25px 25px;
+
+  /* --- RENK VE DOKU (Örgü Efekti) --- */
+  background-color: #2e7d32; /* Koyu orman yeşili taban */
+
+  background-image:
+    /* 1. Katman: Hacim veren gölgeler (Kumaş kıvrımları) */ linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      transparent 15%,
+      transparent 85%,
+      rgba(0, 0, 0, 0.3) 100%
+    ),
+    /* 2. Katman: Yün Örgü Dokusu (Zigzag desen) */
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 2px,
+        rgba(255, 255, 255, 0.1) 2px,
+        rgba(255, 255, 255, 0.1) 4px
+      ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 2px,
+      rgba(255, 255, 255, 0.1) 2px,
+      rgba(255, 255, 255, 0.1) 4px
+    );
+
+  /* --- 3D IŞIKLANDIRMA (Silindir hissi) --- */
+  /* Üstten ışık vuruyor, altta gölge var, içerde derinlik var */
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    /* Üst parlama */ inset 0 -5px 10px rgba(0, 0, 0, 0.4),
+    /* Alt derinlik */ 0 10px 20px rgba(0, 0, 0, 0.3); /* Dış gölge */
+
+  /* --- ANİMASYON --- */
+  opacity: 0;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Yaylanarak gelme */
+}
+
+/* --- ATKININ SARKAN UCU (ANA PARÇA) --- */
+.sun-scarf::before {
+  content: "";
+  position: absolute;
+  right: 20%;
+  top: 30px; /* Boyun kısmının altından çıkar */
+  width: 35px;
+  height: 70px; /* Daha uzun */
+
+  /* Aynı dokuyu miras al */
+  background-color: #2e7d32;
+  background-image: inherit; /* Örgü desenini koru */
+
+  /* Şekil: Hafif dalgalı */
+  border-radius: 5px 5px 2px 2px;
+
+  /* Hacim */
+  box-shadow: inset 2px 0 5px rgba(0, 0, 0, 0.3),
+    4px 4px 10px rgba(0, 0, 0, 0.2);
+
+  z-index: -1; /* Boynun arkasında */
+
+  /* Rüzgar Animasyonu Başlangıcı */
+  transform-origin: top center;
+  transform: rotate(-5deg);
+}
+
+/* --- ATKININ PÜSKÜLLERİ (GERÇEKÇİ İPLİKLER) --- */
+.sun-scarf::after {
+  content: "";
+  position: absolute;
+  right: 20%;
+  top: 98px; /* Sarkan ucun bittiği yer */
+  width: 35px;
+  height: 15px;
+  z-index: -1;
+
+  /* İplik Görünümü: Dikey çizgiler */
+  background: repeating-linear-gradient(
+    to right,
+    #2e7d32 0px,
+    #2e7d32 2px,
+    transparent 2px,
+    transparent 4px
+  );
+
+  /* Rüzgarla sallansın diye ana parçaya bağlı gibi durmalı */
+  transform: rotate(-5deg);
+  transform-origin: top center;
+  opacity: 0.9;
+}
+
+/* --- DÜĞÜM DETAYI (Kumaşın bağlandığı yer) --- */
+/* Bunu yapmak için pseudo-element yetmediği için box-shadow ile hile yapıyoruz */
+
+/* === MOUSE ÜZERİNE GELİNCE ÇALIŞACAK KISIM === */
+
+#sun:hover .sun-scarf {
+  opacity: 1;
+  /* Yerine oturt */
+  transform: translateX(-50%) scale(1) translateY(0);
+}
+
+/* Rüzgar Animasyonu: Mouse üzerindeyken atkı ucu sallansın */
+@keyframes scarfSway {
+  0% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(-10deg) skewX(2deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+
+/* Hover durumunda animasyonu başlat */
+#sun:hover .sun-scarf::before,
+#sun:hover .sun-scarf::after {
+  animation: scarfSway 2s ease-in-out infinite;
+}
+
+/* Yanaklar (Mevcut kodunuz) */
+#sun:hover .cheek {
+  opacity: 0.9 !important;
+  filter: blur(2px); /* Yanaklara hafif bulanıklık vererek daha doğal yapalım */
+}
+
+#sun:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+#moon .hand {
+  position: absolute;
+  width: 8px;
+  height: 25px;
+  top: 45%;
+  background-color: #444;
+  border-radius: 10px;
+  opacity: 0;
+  transform: translateY(5px) scaleY(0.8);
+  transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  z-index: 1;
+}
+#moon .hand.left {
+  left: 20%;
+}
+#moon .hand.right {
+  right: 20%;
+}
+
+#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .hand {
+  opacity: 1;
+}
+#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .hand.left {
+  transform: translateY(0) rotate(-75deg) translateX(-15px);
+}
+#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .hand.right {
+  transform: translateY(0) rotate(75deg) translateX(15px);
+}
+#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .face .mouth {
+  height: 20%;
+  top: 55%;
+  border-radius: 0 0 70px 70px;
+  background: transparent;
+  border-bottom: 5px solid #2c2c2c;
+}
+
+#moon.hands-active .hand {
+  opacity: 1;
+}
+#moon.hands-active .hand.left {
+  transform: translateY(0) rotate(-75deg) translateX(-15px);
+}
+#moon.hands-active .hand.right {
+  transform: translateY(0) rotate(75deg) translateX(15px);
+}
+
+/* ======================================= */
+/* === FINAL QUOTE WITH SPARKLES === */
+/* ======================================= */
+.final-quote {
+  position: relative;
+  padding: 100px 20px;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 2.2rem;
+  color: #a7a7a7;
+  z-index: 30;
+  animation: fade-in-up 1s ease-out;
+}
+.final-quote .sparkle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkle-up 1.5s ease-in-out infinite;
+}
+@keyframes sparkle-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0);
+  }
+}
+
+/* ======================================= */
+/* === MODAL DIALOG === */
+/* ======================================= */
+#memory-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#memory-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal-content {
+  position: relative;
+  padding: 40px;
+  background-color: #111;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  text-align: center;
+  max-width: 500px;
+  transform: scale(0.8);
+  transition: transform 0.5s ease;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+}
+#memory-modal.active .modal-content {
+  transform: scale(1);
+}
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.close-modal:hover {
+  transform: scale(1.2);
+}
+#memory-text {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.4rem;
+  color: #ddd;
+}
+
+/* ================================================ */
+/* === RESPONSIVE DESIGN FOR ALL DEVICES === */
+/* ================================================ */
+@media (max-width: 768px) {
+  #story-scroll-container {
+    width: 90%;
+    max-width: none;
+  }
+
+  .intro-title h1 {
+    font-size: 2rem;
+  }
+
+  .story-scene {
+    padding: 30px 20px;
+    margin-bottom: 60vh;
+  }
+
+  .story-scene p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+
+  #sun {
+    width: 80px;
+    height: 80px;
+    box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
+  }
+
+  #moon {
+    width: 40px;
+    height: 40px;
+  }
+
+  #world {
+    width: 50px;
+    height: 50px;
+  }
+
+  .face .eye {
+    width: 18%;
+    height: 18%;
+  }
+
+  .memory-star {
+    padding: 10px;
+    margin: -10px;
+  }
+
+  .final-quote {
+    font-size: 1.5rem;
+    padding: 50px 20px;
+  }
+
+  .modal-content {
+    width: 85%;
+    padding: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  #sun {
+    width: 60px;
+    height: 60px;
+  }
+  #moon {
+    width: 30px;
+    height: 30px;
+  }
+  .story-scene p {
+    font-size: 1rem;
+  }
+}
