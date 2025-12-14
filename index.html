@@ -249,6 +249,111 @@
           transform: scale(0.95);
         }
       }
+      /* --- ŞİFRE MODAL STİLLERİ --- */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85); /* Arkaplanı karart */
+        backdrop-filter: blur(5px);
+        display: none; /* Başlangıçta gizli */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-box {
+        background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+        padding: 40px;
+        border-radius: 15px;
+        border: 1px solid #333;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 0 30px rgba(46, 139, 87, 0.2);
+        transform: scale(0.8);
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+      .modal-overlay.active .modal-box {
+        transform: scale(1);
+      }
+
+      .modal-box h2 {
+        color: #2e8b57; /* Hikaye rengi */
+        margin-top: 0;
+        font-family: 'Cinzel', serif;
+      }
+
+      .modal-box input {
+        width: 80%;
+        padding: 10px;
+        margin: 20px 0;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #555;
+        color: white;
+        text-align: center;
+        font-size: 1.1rem;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+      .modal-box input:focus {
+        border-color: #2e8b57;
+      }
+
+      .modal-box button {
+        padding: 10px 25px;
+        background: #2e8b57;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+      .modal-box button:hover {
+        background: #3cb371;
+        box-shadow: 0 0 15px #2e8b57;
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #777;
+      }
+      .close-btn:hover { color: #fff; }
+
+      #error-msg {
+        color: #ff4545;
+        font-size: 0.9rem;
+        margin-top: 15px;
+        display: none; /* Hata yokken gizli */
+      }
+      
+      /* Hata titreme animasyonu */
+      .shake {
+        animation: shake 0.5s;
+      }
+      @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        50% { transform: translateX(10px); }
+        75% { transform: translateX(-10px); }
+        100% { transform: translateX(0); }
+      }
     </style>
   </head>
   <body>
@@ -275,14 +380,15 @@
         </div>
       </a>
 
-      <a href="story2.html" class="book-link">
+      <a href="#" class="book-link" id="locked-story-trigger">
         <div class="book-container">
           <div class="book">
-            <div class="cover" style="background: linear-gradient(135deg, #2e8b57 0%, #1a1a1a 100%); border-left-color: #1e5c35;">
+            <div class="cover">
               <div class="cover-art">
-                <div style="font-size: 3rem;">🌷</div>
+                <div class="cover-sun"></div>
+                <div class="cover-moon"></div>
               </div>
-              <div class="book-title">Güneş ve Ay<br><span style="font-size:0.6em">Yeni Bir Bağ</span></div>
+              <div class="book-title">Güneş ve Ay<br><span style="font-size:0.6em">Yeni Bir Bağ</span><br><span style="font-size:0.4em; color: #fd0000;">Translated to Turkish</span></div>
               <div class="author">Yunus Mert Kök</div>
             </div>
             <div class="spine"><span>II</span></div>
@@ -290,6 +396,19 @@
           </div>
         </div>
       </a>
+
+      <div id="password-modal" class="modal-overlay">
+      <div class="modal-box">
+        <span class="close-btn" onclick="closePasswordModal()">&times;</span>
+        <h2>Gizli Hikaye</h2>
+        <p>Bu hikayenin kilidini açmak için şifreyi giriniz.</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">(İpucu: Hikayedeki çiçeğin adı)</p>
+        
+        <input type="password" id="story-password" placeholder="Şifre..." />
+        <button onclick="checkPassword()">Kilidi Aç</button>
+        <p id="error-msg">Yanlış şifre!</p>
+      </div>
+    </div>
 
     <script>
       const body = document.querySelector("body");
@@ -303,6 +422,59 @@
         star.style.animationDelay = Math.random() * 5 + "s";
         body.appendChild(star);
       }
+      // --- ŞİFRELEME MANTIĞI ---
+
+      const modal = document.getElementById("password-modal");
+      const link = document.getElementById("locked-story-trigger");
+      const input = document.getElementById("story-password");
+      const errorMsg = document.getElementById("error-msg");
+      const modalBox = document.querySelector(".modal-box");
+
+      // 1. Kitaba tıklandığında Modalı aç
+      link.addEventListener("click", (e) => {
+        e.preventDefault(); // Sayfaya gitmeyi engelle
+        modal.classList.add("active");
+        input.value = ""; // Önceki yazıyı temizle
+        errorMsg.style.display = "none";
+        input.focus();
+      });
+
+      // 2. Modalı kapatma fonksiyonu
+      function closePasswordModal() {
+        modal.classList.remove("active");
+      }
+
+      // Modalin dışına tıklanırsa kapat
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closePasswordModal();
+      });
+
+      // 3. Şifreyi Kontrol Etme
+      function checkPassword() {
+        const password = input.value.trim().toLowerCase(); // Küçük harfe çevir
+        
+        // ŞİFRE BURADA BELİRLENİYOR: "lale"
+        if (password === "lale") {
+          // Doğruysa yönlendir
+          window.location.href = "story2.html";
+        } else {
+          // Yanlışsa hata ver ve titret
+          errorMsg.style.display = "block";
+          modalBox.classList.add("shake");
+          
+          // Titreme animasyonunu sıfırla
+          setTimeout(() => {
+            modalBox.classList.remove("shake");
+          }, 500);
+        }
+      }
+
+      // Enter tuşuna basınca da giriş yapsın
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          checkPassword();
+        }
+      });
     </script>
   </body>
 </html>
