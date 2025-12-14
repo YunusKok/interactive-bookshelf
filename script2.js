@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.style.left = "20%";
         moon.style.left = "80%";
         world.style.opacity = "0"; // Dünya başta görünmez
-        moon.classList("happy");
+        moon.classList.add("happy");
       },
     },
     {
@@ -99,12 +99,18 @@ document.addEventListener("DOMContentLoaded", () => {
       text: `'Neden biliyor musun? 'Şimdiden şımarmasın, nasıl olsa ilerde yine karşılaşırız, o zaman överim' diyor. İçinden taşan o güzel duyguları, takdiri bir sonraki güne, 'uygun zamana' erteliyor.'`,
       action: () => {
         sun.classList.add("sad");
+        sun.style.filter = "brightness(1)";
+        moon.style.filter = "brightness(1)";
       },
     },
     {
       text: `'Ama ertesi gün... O kız bir kazada hayatını kaybediyor. Yönetmen kahroluyor. 'Keşke' diyor, 'Keşke o an söyleseydim. Gururum neye yaradı şimdi? Ne kaybederdim ki hislerimi açsaydım?''`,
       action: () => {
+        moon.style.transform = "translate(-50%, -50%) scale(0.9)";
+        sun.style.transform = "translate(-50%, -50%) scale(0.9)";
         sun.classList.add("sad");
+        sun.style.filter = "brightness(0.7)";
+        moon.style.filter = "brightness(0.7)";
         sun.style.boxShadow = "0 0 50px #ff4500";
         moon.classList.add("sad");
       },
@@ -112,6 +118,10 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Güneş ışığını kararlılıkla Ay'a çevirdi 'İşte bu yüzden ay kendini iyi hissetti ve "Sana olan hislerimi, içimdeki bu parıltıyı saklamanın bir anlam ifade etmediğini biliyorum dedi."'`,
       action: () => {
+        moon.style.transform = "translate(-50%, -50%) scale(1.2)";
+        sun.style.transform = "translate(-50%, -50%) scale(1.2)";
+        sun.style.filter = "brightness(1)";
+        moon.style.filter = "brightness(1)";
         sun.classList.remove("sad");
         sun.classList.add("happy");
         sun.style.boxShadow = "0 0 80px #ffd700";
@@ -131,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `'Seni keşfettikçe hoşlanıyorum. Senin sen olman hoşuma gidiyor. Kendini o edebi, o zarif biçimde ifade etmen... Gerçekten çok hoş ve sadece sana özel.'`,
       action: () => {
-        moon.style.transform = "translate(-50%, -50%) scale(1.1)";
+        moon.style.transform = "translate(-50%, -50%) scale(1.3)";
         sun.classList.add("happy");
         moon.classList.add("happy");
         moon.classList.add("hands-active");
@@ -142,6 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
+        moon.style.transform = "translate(-50%, -50%) rotate(-15deg)";
+        moon.style.background = "#FFE4E1";
+        moon.style.boxShadow = "0 0 20px #FFC0CB, 0 0 40px #FF69B4";
       },
     },
     {
@@ -150,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         sun.classList.add("wistful");
         sun.classList.remove("happy");
         moon.classList.remove("happy");
-        // İlk bölümün sonundaki "duraksama" anı
+        moon.classList.add("wistful");
         sun.style.left = "40%";
         moon.style.left = "60%";
       },
@@ -159,6 +172,24 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Tam duygular filizlenirken, hikayenin en büyük engeli ortaya çıktı. Dünya, o devasa ve sessiz gövdesiyle yavaşça Güneş ile Ay'ın arasına girdi.`,
       action: () => {
+        moon.style.filter = "brightness(1)";
+        sun.style.filter = "brightness(1)";
+        world.style.left = "50%";
+        world.style.opacity = "1";
+        world.style.zIndex = "10";
+        sun.style.left = "15%";
+        moon.style.left = "85%";
+        sun.classList.add("surprised");
+        moon.classList.add("surprised");
+      },
+    },
+    {
+      text: `Onlar, aralarındaki aşılmaz dağların bu mavi gezegen olduğunu sanıyorlardı; oysa asıl engel, kendi zihinlerinde inşa ettikleri o görünmez duvarlardı. Güneş ve Ay, aynı gökyüzünü paylaşsalar da zamanın acımasız çarkında birbirlerine yabancılaşmışlardı. Bir zamanlar kainatı ısıtan o kadim bağ, artık yerini uzayın sonsuz ve soğuk sessizliğine bırakmıştı`,
+      action: () => {
+        sun.style.transform = "translate(-50%, -50%) rotate(-15deg)";
+        moon.style.transform = "translate(-50%, -50%) rotate(15deg)";
+        moon.style.filter = "brightness(0.8)";
+        sun.style.filter = "brightness(0.8)";
         world.style.left = "50%";
         world.style.opacity = "1";
         world.style.zIndex = "10";
@@ -174,6 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
         world.style.left = "50%";
         world.style.opacity = "1";
         world.style.zIndex = "10";
+        sun.style.left = "15%";
+        sun.style.filter = "brightness(0.3)"; // Güneş kararır
         moon.style.filter = "brightness(0.3)"; // Ay kararır
         moon.style.background = "#444";
         moon.style.boxShadow = "none";
@@ -185,6 +218,11 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Ay karanlıkta yapayalnız kaldı. Bu ayrılık ona ağır geldi. Güneşsiz kalmanın soğukluğu, gururundan daha baskındı. Dünya'nın gölgesinde saklanmak yerine, cesaretle bir adım attı.`,
       action: () => {
+        world.style.left = "50%";
+        world.style.opacity = "1";
+        world.style.zIndex = "10";
+        sun.style.filter = "brightness(1)";
+        moon.style.top = "25%";
         moon.style.left = "65%"; // Ay gölgeden çıkmaya başlar
         moon.classList.remove("sad");
       },
@@ -192,6 +230,11 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Gölgeden sıyrılan Ay, tekrar Güneş'in yüzünü gördü. Güneş onu görünce ışığını coşkuyla artırdı. Yeniden ısındılar, aralarındaki mesafe buz gibi eriyip gitti.`,
       action: () => {
+        world.style.left = "50%";
+        world.style.opacity = "1";
+        world.style.zIndex = "10";
+        moon.style.top = "15%";
+        moon.style.left = "55%"; // Ay daha da yaklaşır
         moon.style.filter = "brightness(1)";
         moon.style.background = "#e0e0e0";
         moon.style.boxShadow = "0 0 30px #b0c4de";
@@ -205,8 +248,13 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       text: `Fakat bu yakınlaşma Ay'ın içine yeni bir kurt düşürdü. Aşağıya baktı; Güneş ışığını ağaçlara, denizlere, insanlara... herkese saçıyordu. Ay'ın yüzü düştü.`,
       action: () => {
+        world.style.left = "50%";
+        world.style.opacity = "1";
+        world.style.zIndex = "10";
         moon.classList.remove("happy");
         moon.classList.add("angry"); // Kıskançlık ifadesi
+        moon.style.background = "#ffdcd1ff";
+        moon.style.boxShadow = "0 0 30px #ff4400ff";
         sun.classList.remove("happy");
         sun.classList.add("surprised");
       },
@@ -237,7 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     // --- FİNAL: ARKADAŞTAN ÖTE ---
     {
-      text: `Böylece bir karar verdiler. Ne sevgili olup birbirlerini yakacaklar, ne de uzaklaşıp donacaklardı. Onlar 'arkadaş' ama arkadaştan da çok öte, kopmaz bir bağla birbirine tutunan iki ışıktı artık.`,
+      text: `Böylece bir karar verdiler. Ne birbirlerini yakacaklar, ne de uzaklaşıp donacaklardı. Onlar kopmaz bir bağla birbirine tutunan iki ışıktı artık.`,
       action: () => {
         sun.classList.add("happy");
         moon.classList.add("happy");
@@ -414,7 +462,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function createFinalQuote() {
     const quoteContainer = document.createElement("div");
     quoteContainer.classList.add("final-quote");
-    quoteContainer.innerText = "True friends know how to share the sky.";
+    quoteContainer.innerText =
+      "Birbirlerine ateş olup can yakmak yerine, ışık olup yollarını aydınlatmayı seçtiler.";
     storyContainer.appendChild(quoteContainer);
 
     setInterval(() => {
