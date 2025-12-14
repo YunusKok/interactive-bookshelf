@@ -61,13 +61,13 @@ This is a static website—no installation required.
 
 ## 📸 Screenshots
 
-|   3D Library Interface    | Interactive Story Scene |
-| :-----------------------: | :---------------------: |
-| ![Library](library.png)   |  ![Story](story.png)    |
+|  3D Library Interface   | Interactive Story Scene |
+| :---------------------: | :---------------------: |
+| ![Library](library.png) |   ![Story](story.png)   |
 
 ## 🔮 Future Plans
 
-- [ ] Add more interactive stories to the library.
+- [x] Add more interactive stories to the library.
 - [ ] Implement "Choose Your Own Adventure" branching narratives.
 - [ ] Add sound effects and background music.
 - [ ] Create multilingual support.
