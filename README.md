@@ -1,6 +1,6 @@
 # 📚 Interactive Library: Two Glimmers of Light
 
-> _"True friends know how to share the sky."_
+> _"Every world is special. Every heart matters. You belong."_
 
 **Interactive Library** is an immersive digital storytelling project built with modern web technologies, designed for children and the young at heart. The project greets visitors with a 3D library interface, and when a book is selected, it opens a magical tale controlled through scrolling.
 
@@ -8,30 +8,36 @@
 
 ## 🌟 About the Project
 
-This project transforms static reading into a dynamic adventure. The story follows the sweet journey of the **Sun and Moon** in the sky—their playful chase, mutual understanding, and the lesson that true friendship means making each other shine.
+This project transforms static reading into a dynamic adventure featuring two interactive stories:
+
+### 📖 Story 1: Two Glimmers of Light
+The sweet journey of the **Sun and Moon** in the sky—their playful chase, mutual understanding, and the lesson that true friendship means making each other shine.
+
+### 🪐 Story 2: Pluto's Journey
+A heartwarming **children's story about belonging and acceptance**. Little Pluto, excluded by the other planets for being a "dwarf planet," learns that size doesn't determine worth. A tale about peer acceptance and the importance of standing up for others.
 
 As users scroll down the page:
-
 - Text flows naturally,
-- Characters (Sun and Moon) move and react emotionally,
-- Background and atmospheric events (stars, eclipses, light dust) change with the story's progression.
+- Characters move and react emotionally,
+- Background and atmospheric events (stars, planets, ice crystals) change with the story's progression.
 
 ## ✨ Key Features
 
 - **3D Library Interface:** Using CSS `transform-style: preserve-3d`, a realistic 3D bookshelf with depth perception.
 - **Scroll-Triggered Narrative:** `Intersection Observer API` synchronizes scene transitions with the user's reading pace.
-- **Dynamic Character Expressions:** Sun and Moon faces change expressions (happy, sad, surprised, angry, wistful) based on story emotions.
+- **Dynamic Character Expressions:** Characters change expressions (happy, sad, surprised, angry, laughing, wistful) based on story emotions.
 - **Advanced Visual Effects:**
   - ✨ Randomly generated and twinkling stars.
   - ☄️ Shooting star animations.
   - 🖱️ Mouse-tracking light trails.
-  - 🌬️ **Enhanced Particle System:** When the Sun sneezes, light dust particles appear and fall with gravity simulation.
+  - 🌬️ **Enhanced Particle System:** Light dust and ice crystal effects.
+  - 🪐 **Solar System:** All 9 planets with unique designs and Saturn's rings.
 - **Memory Stars:** Interactive "Easter Egg" stars that reveal special messages when clicked.
 - **Fully Responsive:** Perfect compatibility with mobile, tablet, and desktop devices.
 
 ## 🚀 Technologies Used
 
-This project is built entirely with **Vanilla JavaScript** without any frameworks or libraries like React or jQuery.
+This project is built entirely with **Vanilla JavaScript** without any frameworks or libraries.
 
 - **HTML5:** Semantic structure and SEO optimization.
 - **CSS3:** Flexbox, Grid, Keyframe Animations, and 3D Transforms.
@@ -42,9 +48,12 @@ This project is built entirely with **Vanilla JavaScript** without any framework
 ```text
 interactive-library/
 ├── index.html      # Main Page (3D Library View)
-├── story1.html     # Story Page (Two Glimmers of Light)
-├── style.css       # All styles, animations, and responsive code
-├── script.js       # Story engine, interactions, and animation logic
+├── story1.html     # Story 1: Two Glimmers of Light (Sun & Moon)
+├── story2.html     # Story 2: Pluto's Journey (Solar System)
+├── style.css       # Styles for Story 1
+├── style2.css      # Styles for Story 2 (Planets)
+├── script.js       # Story 1 engine and animations
+├── script2.js      # Story 2 engine and animations
 └── README.md       # Project documentation
 ```
 
@@ -68,6 +77,7 @@ This is a static website—no installation required.
 ## 🔮 Future Plans
 
 - [x] Add more interactive stories to the library.
+- [x] Create a children's story with educational theme (Pluto's Journey).
 - [ ] Implement "Choose Your Own Adventure" branching narratives.
 - [ ] Add sound effects and background music.
 - [ ] Create multilingual support.

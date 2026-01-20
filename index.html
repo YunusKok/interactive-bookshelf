@@ -380,34 +380,23 @@
         </div>
       </a>
 
-      <a href="#" class="book-link" id="locked-story-trigger">
+      <a href="story2.html">
         <div class="book-container">
           <div class="book">
-            <div class="cover">
+            <div class="cover" style="border-left-color: #4169e1;">
               <div class="cover-art">
-                <div class="cover-sun"></div>
-                <div class="cover-moon"></div>
+                <div class="cover-pluto" style="position: absolute; width: 60px; height: 60px; background: radial-gradient(circle at 30% 30%, #e8f4f8, #a8b4c0 60%, #7a8a96); border-radius: 50%; left: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 15px rgba(135, 206, 235, 0.6);"></div>
+                <div class="cover-heart" style="position: absolute; width: 20px; height: 20px; background: #ffb6c1; left: 35%; top: 35%; clip-path: polygon(50% 0%, 100% 35%, 100% 70%, 50% 100%, 0% 70%, 0% 35%); border-radius: 50%;"></div>
               </div>
-              <div class="book-title">Güneş ve Ay<br><span style="font-size:0.6em">Yeni Bir Bağ</span><br><span style="font-size:0.4em; color: #fd0000;">Translated to Turkish</span></div>
-              <div class="author">Yunus Mert Kök</div>
+              <div class="book-title" style="color: #87ceeb;">Pluto's Journey<br><span style="font-size:0.6em; color: #c0c0c0;">A Story About Belonging</span></div>
+              <div class="author">Children's Story</div>
             </div>
-            <div class="spine"><span>II</span></div>
+            <div class="spine"><span>CHAPTER II</span></div>
             <div class="pages"></div>
           </div>
         </div>
       </a>
 
-      <div id="password-modal" class="modal-overlay">
-      <div class="modal-box">
-        <span class="close-btn" onclick="closePasswordModal()">&times;</span>
-        <h2>Gizli Hikaye</h2>
-        <p>Bu hikayenin kilidini açmak için şifreyi giriniz.</p>
-        <p style="font-size: 0.8rem; opacity: 0.7;">(İpucu: Hikayedeki çiçeğin adı)</p>
-        
-        <input type="password" id="story-password" placeholder="Şifre..." />
-        <button onclick="checkPassword()">Kilidi Aç</button>
-        <p id="error-msg">Yanlış şifre!</p>
-      </div>
     </div>
 
     <script>
@@ -422,59 +411,7 @@
         star.style.animationDelay = Math.random() * 5 + "s";
         body.appendChild(star);
       }
-      // --- ŞİFRELEME MANTIĞI ---
 
-      const modal = document.getElementById("password-modal");
-      const link = document.getElementById("locked-story-trigger");
-      const input = document.getElementById("story-password");
-      const errorMsg = document.getElementById("error-msg");
-      const modalBox = document.querySelector(".modal-box");
-
-      // 1. Kitaba tıklandığında Modalı aç
-      link.addEventListener("click", (e) => {
-        e.preventDefault(); // Sayfaya gitmeyi engelle
-        modal.classList.add("active");
-        input.value = ""; // Önceki yazıyı temizle
-        errorMsg.style.display = "none";
-        input.focus();
-      });
-
-      // 2. Modalı kapatma fonksiyonu
-      function closePasswordModal() {
-        modal.classList.remove("active");
-      }
-
-      // Modalin dışına tıklanırsa kapat
-      modal.addEventListener("click", (e) => {
-        if (e.target === modal) closePasswordModal();
-      });
-
-      // 3. Şifreyi Kontrol Etme
-      function checkPassword() {
-        const password = input.value.trim().toLowerCase(); // Küçük harfe çevir
-        
-        // ŞİFRE BURADA BELİRLENİYOR: "lale"
-        if (password === "lale") {
-          // Doğruysa yönlendir
-          window.location.href = "story2.html";
-        } else {
-          // Yanlışsa hata ver ve titret
-          errorMsg.style.display = "block";
-          modalBox.classList.add("shake");
-          
-          // Titreme animasyonunu sıfırla
-          setTimeout(() => {
-            modalBox.classList.remove("shake");
-          }, 500);
-        }
-      }
-
-      // Enter tuşuna basınca da giriş yapsın
-      input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          checkPassword();
-        }
-      });
     </script>
   </body>
 </html>

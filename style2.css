@@ -1,26 +1,26 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Times+New+Roman&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap");
 
 :root {
   --sun-color: #ffd700;
   --sun-glow1: #ffa500;
   --sun-glow2: #ff4500;
-  --moon-color: #e0e0e0;
-  --moon-glow: #b0c4de;
+  --pluto-color: #a8b4c0;
+  --pluto-sad: #6b7a8a;
+  --pluto-happy: #c8d8e8;
   --text-color: #f0f0f0;
-  --transition-speed: 2.5s;
-  --dust-duration: 2s;
+  --transition-speed: 2s;
 }
 
 body {
   margin: 0;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Nunito", sans-serif;
   background-color: #000;
   color: var(--text-color);
   cursor: default;
 }
 
 /* ======================================= */
-/* === ENHANCED PRELOADER === */
+/* === PRELOADER === */
 /* ======================================= */
 #preloader {
   position: fixed;
@@ -38,27 +38,26 @@ body {
   pointer-events: none;
 }
 .loader-icon {
-  width: 80px;
-  height: 80px;
-  background: var(--sun-color);
+  width: 60px;
+  height: 60px;
+  background: var(--pluto-color);
   border-radius: 50%;
-  box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
+  box-shadow: 0 0 20px var(--pluto-color), 0 0 40px #87ceeb;
   animation: pulse-loader 2s infinite ease-in-out;
 }
 @keyframes pulse-loader {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(0.9);
-    box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
+    box-shadow: 0 0 20px var(--pluto-color), 0 0 40px #87ceeb;
   }
   50% {
     transform: scale(1.1);
-    box-shadow: 0 0 40px var(--sun-color), 0 0 80px var(--sun-glow1);
+    box-shadow: 0 0 30px var(--pluto-color), 0 0 60px #87ceeb;
   }
 }
 
 /* ======================================= */
-/* === UNIVERSE AND BACKGROUND === */
+/* === UNIVERSE BACKGROUND === */
 /* ======================================= */
 #universe {
   position: fixed;
@@ -66,8 +65,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
   z-index: 1;
+  overflow: hidden;
 }
 
 .star {
@@ -79,8 +79,7 @@ body {
 }
 
 @keyframes twinkle {
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0;
     transform: scale(0.5);
   }
@@ -90,143 +89,233 @@ body {
   }
 }
 
-/* ======================================================== */
-/* === ENHANCED MEMORY STARS WITH BETTER EFFECTS === */
-/* ======================================================== */
-.memory-star {
+/* ======================================= */
+/* === THE SUN === */
+/* ======================================= */
+#sun {
   position: absolute;
-  opacity: 1;
-  background-color: #e9fffa;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 30%, #fff8dc, #ffd700 40%, #ffa500 70%, #ff6b00);
+  top: 50%;
+  left: 10%;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  cursor: pointer;
-  z-index: 15;
-  animation: pulse-aura 3s infinite ease-in-out;
-  box-shadow: 0 0 10px var(--sun-glow1), 0 0 20px var(--sun-glow2);
-  transition: all 0.3s ease;
+  box-shadow: 
+    0 0 40px var(--sun-color),
+    0 0 80px var(--sun-glow1),
+    0 0 120px var(--sun-glow2);
+  z-index: 5;
+  transition: all var(--transition-speed) cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.memory-star:hover {
-  transform: scale(1.3);
-  box-shadow: 0 0 15px #fff, 0 0 30px var(--sun-color),
-    0 0 45px var(--sun-glow1);
-}
-
-@keyframes pulse-aura {
-  0%,
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 5px #fff, 0 0 10px var(--sun-color),
-      0 0 15px var(--sun-glow1);
-  }
-  50% {
-    transform: scale(1.5);
-    box-shadow: 0 0 10px #fff, 0 0 20px var(--sun-color),
-      0 0 30px var(--sun-glow1);
-  }
+/* Intro state - Sun big and centered */
+#sun.intro-state {
+  width: 180px;
+  height: 180px;
+  left: 35%;
+  box-shadow: 
+    0 0 60px var(--sun-color),
+    0 0 120px var(--sun-glow1),
+    0 0 180px var(--sun-glow2);
 }
 
 /* ======================================= */
-/* === ENHANCED VISUAL EFFECTS === */
+/* === PLANETS BASE STYLES === */
 /* ======================================= */
-
-.shooting-star {
+.planet {
   position: absolute;
-  width: 100px;
-  height: 2px;
-  background: linear-gradient(to right, white, transparent);
   border-radius: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
   opacity: 0;
-  animation: shoot 5s linear;
-}
-@keyframes shoot {
-  0% {
-    transform: translateX(-150px);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(120vw);
-    opacity: 0;
-  }
+  transition: all var(--transition-speed) cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.trail {
-  position: fixed;
+/* Pluto visible by default */
+#pluto {
+  opacity: 1;
+}
+
+/* Intro state - Pluto big and close to Sun */
+#pluto.intro-state {
+  width: 50px;
+  height: 50px;
+  left: 55%;
+  box-shadow: 0 0 25px rgba(200, 216, 232, 0.8), 0 0 50px rgba(135, 206, 250, 0.5);
+}
+
+/* Mercury */
+#mercury {
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle at 30% 30%, #e0e0e0, #a0a0a0 60%, #808080);
+  left: 18%;
+  box-shadow: 0 0 10px rgba(160, 160, 160, 0.5);
+}
+
+/* Venus */
+#venus {
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle at 30% 30%, #fff5e6, #f5d5a0 50%, #d4a574);
+  left: 24%;
+  box-shadow: 0 0 15px rgba(245, 213, 160, 0.5);
+}
+
+/* Earth */
+#earth {
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle at 30% 30%, #87ceeb, #4a90a4 40%, #2e6f40 70%, #1a4f2a);
+  left: 32%;
+  box-shadow: 0 0 15px rgba(74, 144, 164, 0.6);
+}
+
+/* Mars */
+#mars {
+  width: 24px;
+  height: 24px;
+  background: radial-gradient(circle at 30% 30%, #ffccaa, #cd5c5c 50%, #8b3a3a);
+  left: 40%;
+  box-shadow: 0 0 12px rgba(205, 92, 92, 0.5);
+}
+
+/* Jupiter */
+#jupiter {
+  width: 70px;
+  height: 70px;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      #d4a574 0px,
+      #c99a65 8px,
+      #e8c496 16px,
+      #a67d5a 24px,
+      #d4a574 32px
+    );
+  left: 52%;
+  box-shadow: 0 0 25px rgba(212, 165, 116, 0.6);
+  border-radius: 50%;
+}
+
+/* Saturn */
+#saturn {
+  width: 55px;
+  height: 55px;
+  background: radial-gradient(circle at 30% 30%, #fff8dc, #f4d58d 40%, #d4a574);
+  left: 64%;
+  box-shadow: 0 0 20px rgba(244, 213, 141, 0.5);
+}
+
+#saturn .ring {
+  position: absolute;
+  width: 90px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(70deg);
+  border: 4px solid rgba(210, 180, 140, 0.7);
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 
+    0 0 5px rgba(210, 180, 140, 0.3),
+    inset 0 0 5px rgba(210, 180, 140, 0.3);
+}
+
+/* Uranus */
+#uranus {
+  width: 38px;
+  height: 38px;
+  background: radial-gradient(circle at 30% 30%, #e0ffff, #87ceeb 50%, #5f9ea0);
+  left: 74%;
+  box-shadow: 0 0 18px rgba(95, 158, 160, 0.6);
+}
+
+/* Neptune */
+#neptune {
+  width: 36px;
+  height: 36px;
+  background: radial-gradient(circle at 30% 30%, #87cefa, #4169e1 50%, #1e3a8a);
+  left: 84%;
+  box-shadow: 0 0 18px rgba(65, 105, 225, 0.6);
+}
+
+/* ======================================= */
+/* === PLUTO - THE PROTAGONIST === */
+/* ======================================= */
+#pluto {
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #e8f4f8, var(--pluto-color) 60%, #7a8a96);
+  left: 92%;
+  box-shadow: 0 0 10px rgba(168, 180, 192, 0.5), 0 0 20px rgba(135, 206, 235, 0.3);
+  z-index: 10;
+}
+
+#pluto .heart {
+  position: absolute;
   width: 8px;
   height: 8px;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0) 70%
-  );
-  border-radius: 50%;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  animation: fadeOut 0.8s forwards;
-}
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
-  }
-}
-
-/* ======================================= */
-/* === CELESTIAL BODIES WITH ENHANCED ANIMATIONS === */
-/* ======================================= */
-#sun,
-#moon,
-#world {
-  position: absolute;
-  border-radius: 50%;
-  transition: all var(--transition-speed) cubic-bezier(0.25, 0.1, 0.25, 1);
-  will-change: transform, left, top, box-shadow, background-color;
-  z-index: 2;
-}
-#sun {
-  width: 150px;
-  height: 150px;
-  background: var(--sun-color);
-  top: 50%;
+  top: 25%;
   left: 20%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 50px var(--sun-color), 0 0 100px var(--sun-glow1),
-    0 0 150px var(--sun-glow2);
-}
-#moon {
-  width: 60px;
-  height: 60px;
-  background: var(--moon-color);
-  top: 50%;
-  left: 80%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 15px #ffffff, 0 0 30px var(--moon-glow);
-}
-#world {
-  width: 80px;
-  height: 80px;
-  top: 50%;
-  left: -100px;
-  transform: translate(-50%, -50%);
+  background: #ffb6c1;
   opacity: 0;
-  z-index: 10;
-  background: url(https://www.solarsystemscope.com/textures/download/2k_earth_daymap.jpg);
-  background-size: 200% 100%;
-  box-shadow: inset 15px 0 30px rgba(0, 0, 0, 0.9),
-    0 0 25px rgba(120, 180, 255, 0.5);
-  animation: spin-world 40s linear infinite;
+  clip-path: path('M4,1 C2,0 0,2 0,3.5 C0,6 4,8 4,8 C4,8 8,6 8,3.5 C8,2 6,0 4,1');
+  transition: opacity 0.5s ease;
 }
-@keyframes spin-world {
-  from {
-    background-position: 0% center;
+
+#pluto.showing-heart .heart {
+  opacity: 1;
+  animation: heartbeat 1s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Pluto Sad State */
+#pluto.sad {
+  background: radial-gradient(circle at 30% 30%, #c0c8d0, var(--pluto-sad) 60%, #4a5a6a);
+  box-shadow: 0 0 5px rgba(107, 122, 138, 0.3);
+}
+
+/* Pluto Happy State */
+#pluto.happy {
+  background: radial-gradient(circle at 30% 30%, #fff, var(--pluto-happy) 60%, #a8c8e8);
+  box-shadow: 0 0 15px rgba(200, 216, 232, 0.8), 0 0 30px rgba(135, 206, 250, 0.5);
+}
+
+/* ======================================= */
+/* === ICE CRYSTALS (PLUTO'S TEARS) === */
+/* ======================================= */
+.ice-crystal {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #e0f0ff;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 0 4px #87ceeb;
+  animation: crystal-fall 3s ease-out forwards;
+}
+
+@keyframes crystal-fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
   }
-  to {
-    background-position: 200% center;
+  100% {
+    opacity: 0;
+    transform: translateY(100px) rotate(360deg);
   }
 }
 
 /* ======================================= */
-/* === FACE EXPRESSIONS WITH SMOOTH TRANSITIONS === */
+/* === FACE EXPRESSIONS === */
 /* ======================================= */
 .face {
   position: relative;
@@ -234,6 +323,7 @@ body {
   height: 100%;
   z-index: 5;
 }
+
 .eye {
   position: absolute;
   top: 35%;
@@ -241,144 +331,144 @@ body {
   height: 15%;
   background: #2c2c2c;
   border-radius: 50%;
-  transition: all calc(var(--transition-speed) / 2) ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
-.eye.left {
-  left: 25%;
-}
-.eye.right {
-  right: 25%;
-}
+.eye.left { left: 25%; }
+.eye.right { right: 25%; }
+
 .mouth {
   position: absolute;
   top: 60%;
   left: 50%;
   transform: translateX(-50%);
-  width: 40%;
-  height: 5%;
+  width: 30%;
+  height: 4%;
   background: #2c2c2c;
   border-radius: 2px;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
+
+/* Happy Expression */
 .happy .mouth {
-  height: 20%;
+  height: 18%;
   top: 55%;
-  border-radius: 0 0 70px 70px;
+  border-radius: 0 0 50px 50px;
   background: transparent;
-  border-bottom: 5px solid #2c2c2c;
+  border-bottom: 3px solid #2c2c2c;
 }
+
+/* Sad Expression */
 .sad .mouth {
-  height: 20%;
+  height: 15%;
   top: 65%;
-  border-radius: 70px 70px 0 0;
-  background: transparent;
-  border-top: 5px solid #2c2c2c;
-}
-.surprised .mouth {
-  width: 20%;
-  height: 20%;
-  border-radius: 50%;
-}
-.angry .eye {
-  top: 30%;
-  height: 5%;
-  border-radius: 0;
-}
-#sun.angry .eye.left,
-#moon.angry .eye.left {
-  transform: rotate(20deg);
-}
-#sun.angry .eye.right,
-#moon.angry .eye.right {
-  transform: rotate(-20deg);
-}
-.wistful .eye {
-  top: 40%;
-  height: 5%;
-  border-radius: 20px 20px 0 0;
+  border-radius: 50px 50px 0 0;
   background: transparent;
   border-top: 3px solid #2c2c2c;
 }
-.wistful .mouth {
-  width: 25%;
-  height: 2px;
+
+.sad .eye {
+  top: 38%;
+  height: 10%;
+}
+
+/* Angry Expression */
+.angry .eye {
+  top: 30%;
+  height: 8%;
+  border-radius: 0;
+}
+.angry .eye.left { transform: rotate(15deg); }
+.angry .eye.right { transform: rotate(-15deg); }
+
+.angry .mouth {
+  width: 35%;
+  height: 3px;
   top: 65%;
 }
-.cheek {
-  position: absolute;
-  width: 25%;
+
+/* Surprised Expression */
+.surprised .mouth {
+  width: 15%;
   height: 15%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 105, 180, 0.6),
-    transparent 70%
-  );
   border-radius: 50%;
-  top: 50%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 6;
-}
-.cheek.left {
-  left: 15%;
-}
-.cheek.right {
-  right: 15%;
+  top: 58%;
 }
 
-/* ======================================= */
-/* === ENHANCED LIGHT DUST PARTICLE SYSTEM === */
-/* ======================================= */
-.light-dust {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background-color: #ffd700;
+.surprised .eye {
+  height: 20%;
+  width: 18%;
+}
+
+/* Wistful/Thoughtful Expression */
+.wistful .eye {
+  top: 38%;
+  height: 5%;
+  border-radius: 10px 10px 0 0;
+  background: transparent;
+  border-top: 2px solid #2c2c2c;
+}
+
+.wistful .mouth {
+  width: 20%;
+  height: 2px;
+  top: 62%;
+}
+
+/* Laughing/Mocking Expression */
+.laughing .mouth {
+  height: 25%;
+  top: 52%;
+  width: 40%;
+  border-radius: 0 0 50px 50px;
+  background: #2c2c2c;
+}
+
+.laughing .eye {
+  height: 5%;
+  border-radius: 10px 10px 0 0;
+  background: transparent;
+  border-top: 3px solid #2c2c2c;
+}
+
+/* Welcoming/Kind Expression */
+.welcoming .mouth {
+  height: 20%;
+  top: 55%;
+  width: 35%;
+  border-radius: 0 0 50px 50px;
+  background: transparent;
+  border-bottom: 3px solid #2c2c2c;
+}
+
+.welcoming .eye {
+  background: #2c2c2c;
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 4;
-  box-shadow: 0 0 4px #fff, 0 0 8px #ffa500;
-  opacity: 0;
-  animation: dust-appear 0.5s forwards ease-out;
-}
-
-@keyframes dust-appear {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  100% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-}
-
-.light-dust.falling {
-  animation: dust-fall var(--dust-duration) ease-in forwards;
-}
-
-@keyframes dust-fall {
-  0% {
-    opacity: 0.8;
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(100px) scale(0.3);
-  }
 }
 
 /* ======================================= */
-/* === STORY CONTAINER AND TEXT === */
+/* === EXCLUDED STATE ANIMATION === */
+/* ======================================= */
+.excluded {
+  animation: float-lonely 4s ease-in-out infinite;
+}
+
+@keyframes float-lonely {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50% { transform: translate(-50%, -50%) translateY(-10px); }
+}
+
+/* ======================================= */
+/* === STORY CONTAINER === */
 /* ======================================= */
 #story-scroll-container {
   position: relative;
   z-index: 20;
-  width: 50%;
-  max-width: 650px;
+  width: 55%;
+  max-width: 700px;
   margin: 0 auto;
   padding-bottom: 100vh;
 }
+
 .intro-title {
   display: flex;
   flex-direction: column;
@@ -388,20 +478,27 @@ body {
   text-align: center;
   width: 100%;
 }
+
 .intro-title h1 {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 3rem;
+  font-family: "Patrick Hand", cursive;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
+  color: #87ceeb;
+  text-shadow: 0 0 20px rgba(135, 206, 235, 0.5);
   animation: fade-in-down 1s ease-out;
 }
+
 .intro-title p {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  color: #c0c0c0;
   animation: fade-in-up 1s ease-out 0.2s both;
 }
+
 .intro-title span {
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-top: 2rem;
   animation: bounce 2s infinite;
+  color: #87ceeb;
 }
 
 @keyframes fade-in-down {
@@ -427,152 +524,82 @@ body {
 }
 
 @keyframes bounce {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-30px);
-  }
-  60% {
-    transform: translateY(-15px);
-  }
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+  60% { transform: translateY(-10px); }
 }
 
 /* ======================================= */
-/* === ENHANCED STORY SCENES === */
+/* === STORY SCENES === */
 /* ======================================= */
 .story-scene {
   position: relative;
   margin-bottom: 50vh;
-  border-radius: 10px;
-  padding: 50px 40px;
-  background-color: rgba(10, 15, 25, 0.6);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 0 0px 0px rgba(220, 220, 255, 0);
+  border-radius: 15px;
+  padding: 40px 35px;
+  background-color: rgba(13, 27, 42, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(135, 206, 235, 0.2);
+  box-shadow: inset 0 0 0px 0px rgba(135, 206, 235, 0);
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease-in-out, opacity 0.8s ease-out,
-    transform 0.8s ease-out;
+  transform: translateY(30px);
+  transition: all 0.7s ease-in-out;
 }
 
 .story-scene.is-active {
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: inset 0 0 25px 3px rgba(220, 220, 255, 0.15),
-    0 0 20px rgba(255, 215, 0, 0.1);
+  border-color: rgba(135, 206, 235, 0.4);
+  box-shadow: 
+    inset 0 0 20px 3px rgba(135, 206, 235, 0.1),
+    0 0 25px rgba(135, 206, 235, 0.15);
   opacity: 1;
   transform: translateY(0);
 }
 
 .story-scene p {
-  font-family: "Times New Roman", Times, serif;
-  font-style: italic;
-  font-size: 1.5rem;
-  line-height: 1.7;
+  font-family: "Patrick Hand", cursive;
+  font-size: 1.6rem;
+  line-height: 1.8;
   text-align: center;
-  color: #e0e0e0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  padding-bottom: 20px;
+  color: #e8e8e8;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  padding-bottom: 15px;
 }
+
 .scene-progress {
   position: absolute;
-  bottom: 20px;
-  right: 25px;
-  font-family: "Roboto", sans-serif;
-  font-style: normal;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.4);
+  bottom: 15px;
+  right: 20px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.75rem;
+  color: rgba(135, 206, 235, 0.5);
   z-index: 5;
 }
 
 /* ======================================= */
-/* === ENHANCED HAND ANIMATIONS === */
-/* ======================================= */
-/* ========================================= */
-
-/* Yanaklar (Mevcut kodunuz) */
-#sun:hover .cheek {
-  opacity: 0.9 !important;
-  filter: blur(2px); /* Yanaklara hafif bulanıklık vererek daha doğal yapalım */
-}
-
-#sun:hover {
-  transform: translate(-50%, -50%) scale(1.05);
-}
-
-#moon .hand {
-  position: absolute;
-  width: 8px;
-  height: 25px;
-  top: 45%;
-  background-color: #444;
-  border-radius: 10px;
-  opacity: 0;
-  transform: translateY(5px) scaleY(0.8);
-  transition: all 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-  z-index: 1;
-}
-#moon .hand.left {
-  left: 20%;
-}
-#moon .hand.right {
-  right: 20%;
-}
-
-#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .hand {
-  opacity: 1;
-}
-#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .hand.left {
-  transform: translateY(0) rotate(-75deg) translateX(-15px);
-}
-#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .hand.right {
-  transform: translateY(0) rotate(75deg) translateX(15px);
-}
-#moon:not(.sad):not(.angry):not(.surprised):not(.wistful):hover .face .mouth {
-  height: 20%;
-  top: 55%;
-  border-radius: 0 0 70px 70px;
-  background: transparent;
-  border-bottom: 5px solid #2c2c2c;
-}
-
-#moon.hands-active .hand {
-  opacity: 1;
-}
-#moon.hands-active .hand.left {
-  transform: translateY(0) rotate(-75deg) translateX(-15px);
-}
-#moon.hands-active .hand.right {
-  transform: translateY(0) rotate(75deg) translateX(15px);
-}
-
-/* ======================================= */
-/* === FINAL QUOTE WITH SPARKLES === */
+/* === FINAL QUOTE === */
 /* ======================================= */
 .final-quote {
   position: relative;
-  padding: 100px 20px;
+  padding: 80px 20px;
   text-align: center;
-  font-family: "Times New Roman", Times, serif;
-  font-size: 2.2rem;
-  color: #a7a7a7;
+  font-family: "Patrick Hand", cursive;
+  font-size: 2rem;
+  color: #87ceeb;
   z-index: 30;
   animation: fade-in-up 1s ease-out;
 }
+
 .final-quote .sparkle {
   position: absolute;
-  width: 3px;
-  height: 3px;
-  background: rgb(255, 248, 185);
+  width: 4px;
+  height: 4px;
+  background: #fff;
   border-radius: 50%;
   opacity: 0;
   animation: sparkle-up 1.5s ease-in-out infinite;
 }
+
 @keyframes sparkle-up {
   0% {
     opacity: 0;
@@ -584,12 +611,89 @@ body {
   }
   100% {
     opacity: 0;
-    transform: translateY(-40px) scale(0);
+    transform: translateY(-30px) scale(0);
   }
 }
 
 /* ======================================= */
-/* === MODAL DIALOG === */
+/* === MEMORY STARS === */
+/* ======================================= */
+.memory-star {
+  position: absolute;
+  opacity: 1;
+  background-color: #e0ffff;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 15;
+  animation: pulse-aura 3s infinite ease-in-out;
+  box-shadow: 0 0 8px #87ceeb, 0 0 16px #4169e1;
+  transition: all 0.3s ease;
+}
+
+.memory-star:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 12px #fff, 0 0 24px #87ceeb;
+}
+
+@keyframes pulse-aura {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 5px #fff, 0 0 10px #87ceeb;
+  }
+  50% {
+    transform: scale(1.4);
+    box-shadow: 0 0 8px #fff, 0 0 16px #87ceeb;
+  }
+}
+
+/* ======================================= */
+/* === SHOOTING STARS === */
+/* ======================================= */
+.shooting-star {
+  position: absolute;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(to right, #87ceeb, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: shoot 4s linear;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(-100px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+
+/* ======================================= */
+/* === CURSOR TRAIL === */
+/* ======================================= */
+.trail {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(135, 206, 235, 0.8) 0%, rgba(135, 206, 235, 0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+/* ======================================= */
+/* === MODAL === */
 /* ======================================= */
 #memory-modal {
   position: fixed;
@@ -597,7 +701,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 9998;
   display: flex;
   justify-content: center;
@@ -606,46 +710,52 @@ body {
   pointer-events: none;
   transition: opacity 0.5s ease;
 }
+
 #memory-modal.active {
   opacity: 1;
   pointer-events: all;
 }
+
 .modal-content {
   position: relative;
-  padding: 40px;
-  background-color: #111;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  padding: 35px;
+  background-color: #0d1b2a;
+  border: 1px solid rgba(135, 206, 235, 0.3);
+  border-radius: 15px;
   text-align: center;
-  max-width: 500px;
+  max-width: 450px;
   transform: scale(0.8);
   transition: transform 0.5s ease;
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 30px rgba(135, 206, 235, 0.2);
 }
+
 #memory-modal.active .modal-content {
   transform: scale(1);
 }
+
 .close-modal {
   position: absolute;
   top: 10px;
-  right: 20px;
-  font-size: 2rem;
-  color: #fff;
+  right: 15px;
+  font-size: 1.8rem;
+  color: #87ceeb;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
+
 .close-modal:hover {
   transform: scale(1.2);
 }
+
 #memory-text {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 1.4rem;
-  color: #ddd;
+  font-family: "Patrick Hand", cursive;
+  font-size: 1.3rem;
+  color: #e0e0e0;
 }
 
-/* ================================================ */
-/* === RESPONSIVE DESIGN FOR ALL DEVICES === */
-/* ================================================ */
+/* ======================================= */
+/* === RESPONSIVE DESIGN === */
+/* ======================================= */
 @media (max-width: 768px) {
   #story-scroll-container {
     width: 90%;
@@ -653,66 +763,70 @@ body {
   }
 
   .intro-title h1 {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 
   .story-scene {
-    padding: 30px 20px;
+    padding: 25px 18px;
     margin-bottom: 60vh;
   }
 
   .story-scene p {
-    font-size: 1.1rem;
-    line-height: 1.5;
+    font-size: 1.2rem;
+    line-height: 1.6;
   }
 
   #sun {
-    width: 80px;
-    height: 80px;
-    box-shadow: 0 0 30px var(--sun-color), 0 0 60px var(--sun-glow1);
+    width: 70px;
+    height: 70px;
   }
 
-  #moon {
-    width: 40px;
-    height: 40px;
+  #jupiter {
+    width: 45px;
+    height: 45px;
   }
 
-  #world {
-    width: 50px;
-    height: 50px;
+  #saturn {
+    width: 35px;
+    height: 35px;
   }
 
-  .face .eye {
-    width: 18%;
-    height: 18%;
+  #saturn .ring {
+    width: 55px;
+    height: 12px;
   }
 
-  .memory-star {
-    padding: 10px;
-    margin: -10px;
+  .planet {
+    transform: translate(-50%, -50%) scale(0.7);
   }
 
   .final-quote {
-    font-size: 1.5rem;
-    padding: 50px 20px;
+    font-size: 1.4rem;
+    padding: 50px 15px;
   }
 
   .modal-content {
     width: 85%;
     padding: 20px;
   }
+
+  .memory-star {
+    padding: 8px;
+    margin: -8px;
+  }
 }
 
 @media (max-width: 380px) {
   #sun {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
-  #moon {
-    width: 30px;
-    height: 30px;
-  }
+
   .story-scene p {
     font-size: 1rem;
+  }
+
+  .intro-title h1 {
+    font-size: 1.8rem;
   }
 }
